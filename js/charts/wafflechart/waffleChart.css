@@ -1,0 +1,52 @@
+/* the outer beige container */
+.waffle-chart {
+  display: flex;
+  margin: 10px;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.waffle-chart .container {
+  display: flex;
+  align-content: flex-bottom;
+  justify-content: space-between;
+  flex-flow: column;
+}
+
+.waffle-chart .box-container {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  margin: 2px;
+  width: 70px;
+  height: 250px;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
+
+.waffle-chart .box {
+  width: 5px;
+  height: 5px;
+  margin: .5px;
+  z-index: 0;
+  background-color: #FF7373;
+  position: relative;
+  -moz-border-radius: .5px;
+  -webkit-border-radius: .5px;
+  border-radius: .5px; 
+  transform: scale(0);
+}
+.waffle-chart .label-container {
+  display: flex;
+  margin: 2px;
+  width: 70px;
+  height: 20px;
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: 400;
+  justify-content: center;
+}
+
+.waffle-chart .container:last-child .label-container {
+  font-weight: 600;
+}

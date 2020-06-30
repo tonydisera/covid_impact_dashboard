@@ -1,0 +1,392 @@
+body {
+  font-family: 'Raleway', sans-serif !important;
+}
+h4 {
+  font-weight: 400 !important;
+}
+
+.covid-counter-header {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 300;
+}
+#covid-case-counter {
+  font-size: 50px;
+  font-weight: 300;
+  display: inline-block;
+  width: 180px;
+}
+#covid-death-counter {
+  font-size: 50px;
+  font-weight: 300;
+  display: inline-block;
+  width: 180px;
+}
+
+
+.container-fluid {
+  padding: 0px;
+}
+#one {
+  padding: 5px;
+  background-color: #3d3e53;
+  color: #f1f1f1;
+  padding-left: 20px;
+}
+
+
+#popup {
+  font-family: 'Raleway', sans-serif !important;
+}
+.chart text {
+  font-family: 'Raleway', sans-serif !important;
+}
+.chart .data-date {
+  font-size: 12px;
+  font-style: italic;
+  margin-top: -5px;
+}
+
+.map.leaflet-container {
+  width: 100% !important;
+  height: calc(100% - 100px) !important;
+}
+
+.leaflet-container {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+.leaflet-left .leaflet-control {
+    margin-left: 20px !important;
+}
+.leaflet-control-layers-date {
+    padding-left: 15;
+    padding-top: 2px;
+    font-style: italic;
+    margin-top: -5px;
+    display: block;
+}
+
+.hide {
+  display: none !important;
+}
+#mapid { 
+	width: 100%;
+  height: 100%;
+}
+
+.boundary-polygon {
+  fill: transparent !important;
+  stroke: black;
+  stroke-width: 1;
+  stroke-opacity: .8;
+}
+.leaflet-popup-content {
+  width: initial !important;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+    margin-right: 10px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+    width: 170px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 1;
+}
+.legend .legend-header {
+  font-weight: bold;  
+  margin-bottom: 5px;
+}
+
+.legend-cols {
+  display: flex;  
+}
+
+.legend-col2 {
+  display: flex;
+  flex-flow: column;
+  max-width: 70px;
+}
+.legend-hint {
+  font-style: italic;
+  font-size: 12px;
+  line-height: 12.5px;
+}
+
+.color-legend-row {
+  display: flex;
+}
+.color-legend-range {
+  width: 100px;
+
+}
+.color-legend-percentile {
+
+}
+
+.chart {
+  width: 330px;
+  margin-bottom: 20px;
+}
+
+.nigeria .chart {
+  margin-bottom: 50px;
+}
+
+.histogram .avg-line {
+  stroke-width: 4px;
+  stroke-dasharray: 5;
+  stroke: white;
+}
+
+.histogram .marker-label {
+  text-anchor: middle;
+  font-size: 14px;
+  font-weight: 500;
+}
+.histogram circle.marker {
+  fill: black;
+}
+
+.histogram .marker-label {
+  fill: white !important;
+}
+.histogram circle.marker {
+  fill: white !important;
+  r: 8 !important;
+}
+
+
+
+
+.histogram rect {
+  fill: #7485a1;
+  stroke: black;
+  stroke-opacity: .7;
+  stroke-width: 1;
+}
+.histogram rect {
+  stroke: white;
+}
+
+.histogram .x.axis .tick text {
+  transform: rotate(45deg)translate(10px, 0px);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.histogram .y.axis text {
+  font-size: 12px;
+  fill: white;
+}
+
+
+#swarm-container {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#swarm-container circle.point {
+  stroke: darkgray;
+  fill: lightgray;
+  opacity: .7;
+}
+
+#swarm-container circle.highlight {
+  fill: #286db6;
+  stroke: #286db6;
+}
+#swarm-container text.highlight {
+  fill: #286db6;
+  font-weight: 600;
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+#swarm-container line {
+  stroke: #6c6a6a;
+}
+
+#swarm-container svg {
+}
+
+
+
+.taxi-cluster .taxi-marker,
+.taxi-cluster-holder .taxi-marker,
+.covid-cluster .covid-marker,
+.covid-cluster-holder .covid-marker {
+  display: inline-block;
+  border-radius: 17px;
+  width: 35px;
+  height: 35px;
+  margin-top: -5px;
+  margin-left: -2px;
+  padding-top: 4px;
+  color: #4b4b4b;
+  background-color: #fffefe8a;
+  font-weight: 700 !important;
+  text-align: center;
+  border-width: 2.5px;
+  border-style: solid;
+  box-shadow: 0px 0px 4px 4px rgba(0,0,0,0.10) !important;
+  -webkit-box-shadow: 0px 0px 4px 4px rgba(0,0,0,0.10) !important;
+
+}
+.taxo-cluster-holder span,
+.covid-cluster-holder span
+ {
+  font-style: italic !important;
+}
+
+.cluster-popup {
+  padding: 5px;
+}
+.cluster-popup-title {
+  font-weight: bold;
+}
+.cluster-popup-subheading {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.cluster-popup-row {
+  min-width: 120px;
+}
+
+.cluster-popup-label {
+  width: 100px;
+  display: inline-block;
+}
+.cluster-popup-value {
+  width: 20px;
+  display: inline-block;
+}
+.cluster-popup-row-wide {
+  min-width: 180px;
+}
+.cluster-popup-row-wide .cluster-popup-label {
+  width: 180px;
+  display: inline-block;
+}
+
+.chart-title {
+  font-weight: 500;
+  font-size: 16px;
+}
+.chart-summary {
+  display: flex;
+}
+.chart-summary-stat {
+  display: flex;
+  width: 40%;
+  font-size: 14px;
+}
+.chart-summary-stat-label {
+  margin-right: 10px;
+  font-size: 14px;
+}
+.chart-summary-stat-value {
+  font-size: 14px;
+  float: right;
+  margin-right: 5px;
+  background-color: #6f90c4 !important;
+}
+
+.chart-summary-stat-value {
+  background-color: #f8f7f71f !important;
+  border: #ffffff61 !important;
+  border-width: .5px !important;
+  border-style: solid !important;  
+}
+.tooltip-table {
+  font-size: 12px;
+  max-width: 160px;
+  min-width: 160px;
+}
+.tooltip-table tr.detail {
+  border-top: thin solid lightgray;
+}
+
+.popup-table {
+  max-width:250px;
+  min-width:250px;
+}
+.popup-table tr.detail {
+  border-top: thin solid lightgray;
+}
+
+.info-panel {
+  width: 320px;
+  height: 120px;
+}
+.info-panel-table {
+  font-size: 12px;
+  max-width: 300px;
+  min-width: 300px;
+
+}
+.info-panel-table tr.detail {
+  border-top: thin solid lightgray;
+  width: 100px;
+}
+
+.nigeria .info-panel {
+  width: 250px;
+  height: 80px;
+}
+.nigeria .info-panel-table {
+  font-size: 12px;
+  max-width: 230px;
+  min-width: 230px;
+
+}
+.nigeria .info-panel-table tr.detail {
+  border-top: thin solid lightgray;
+}
+.nigeria .info-panel-table tr.detail td {
+  min-width: 150px;
+}
+
+
+
+
+.gutter {
+    background-color: #eee;
+
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('grips/vertical.png');
+    cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+    background-image: url('grips/horizontal.png');
+    cursor: row-resize;
+}
+
+.chart .form-check-label {
+    margin-bottom: 0;
+    font-size: 13px;
+    padding-top: 2px;
+}
+.chart .form-check {
+  margin-left: 35px;
+  margin-top: -5px;
+}
+.nigeria .chart .form-check {
+  margin-left: 35px;
+  margin-top: 0px;
+}
