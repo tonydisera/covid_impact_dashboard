@@ -1,7 +1,8 @@
 var stateMap = {}
 var countyMap = {}
 var groupedOverlays = {}
-var currentDate = '2020-06-27'
+var asOfDate    = "2020-06-29"
+var currentDate = "2020-06-29"
 var maxCasesState = 0;
 var maxCasesCounty= 0;
 var maxDeathsState = 0;
@@ -24,9 +25,9 @@ var newYorkCountyFips = "36061";
 let deathFactor = 100
 let covidDeaths = {
     "name": "COVID-19",
-    "capacity": 130000/deathFactor,
-    'deaths': 125000,
-    "boxes": 125000/deathFactor
+    "capacity": 0,
+    'deaths': 0,
+    "boxes": 0
   }
 
 let deathData = [

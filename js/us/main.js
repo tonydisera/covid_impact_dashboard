@@ -95,8 +95,9 @@ promiseParseCovidStateData(layers.covid_cases_states)
 
 function onStopTimeline() {
   setTimeout(function(d) {
+    showCaseCount(asOfDate);
     d3.select("#covid-death-counter").classed("hide", true)
-    showDeathWaffleChart(currentDate);    
+    showDeathWaffleChart(asOfDate);    
   }, 2000)
 }
 
@@ -154,7 +155,10 @@ function showCaseCount(date) {
     return total + val
   }, 0)
 
-  covidDeaths = totalDeaths;
+
+  covidDeaths.deaths = totalDeaths;
+  covidDeaths.boxes = totalDeaths/deathFactor;
+  covidDeaths.capacity =  covidDeaths.boxes + 50;
 
   d3.select("#covid-case-counter").text(d3.format(".2s")(totalCases))
 

@@ -3,7 +3,7 @@ var formatDate = d3.timeFormat("%b %d %Y");
 var parseDate = d3.timeParse("%m/%d/%y");
 
 var startDate = new Date("2020-03-13"),
-    endDate = new Date("2020-06-27");
+    endDate = new Date(asOfDate);
 
 var margin = {top:60, right:90, bottom:10, left:90},
     width  = 960 - margin.left - margin.right,
@@ -62,12 +62,14 @@ slider.insert("g", ".track-overlay")
 
 var handle = slider.insert("circle", ".track-overlay")
     .attr("class", "handle")
-    .attr("r", 9);
+    .attr("r", 9)
+    .attr("cx", x.range()[1])
 
 var label = slider.append("text")  
     .attr("class", "label")
     .attr("text-anchor", "middle")
-    .text(formatDate(startDate))
+    .text(formatDate(endDate))
+    .attr("x", x.range()[1])
     .attr("transform", "translate(0," + (-25) + ")")
 
 playButton
