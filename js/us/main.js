@@ -20,12 +20,13 @@ registerMap(map, 'map')
 activateLayers('map', [
   'states', 
   'counties', 
+  'covid_cases_counties',
+  'covid_deaths_counties',
   'covid_cases_states', 
   'covid_deaths_states',
-  'covid_cases_counties',
-  'covid_deaths_counties'], true)
+  ], true)
 
-registerMapOverlaysGrouped('map', 'covid_cases_states');
+registerMapOverlaysGrouped('map', 'covid_cases_counties');
 
 map.setView(centerPoint, defaultZoomLevel);
 
@@ -66,25 +67,40 @@ promiseParseCovidStateData(layers.covid_cases_states)
 
   //uncheckLayer('map', 'covid_cases_counts')
 
-  bubbleCases = bubbleChart();
-  bubbleCases.fillColor(function(d,i) {
+  bubbleChartCases = bubbleChart();
+  bubbleChartCases.fillColor(function(d,i) {
+    //return "white";
     return layers.covid_cases_states.getColorForValue(d.value)
   })
 
+  dotChartDeaths = dotChart();
+  dotChartDeaths.fillColor(function(d,i) {
+    return "#FF6B5B";
+  })
+
   d3.select(".case-stats").classed("hide", false)
-  showCaseBubbleChart(currentDate);
+  d3.select(".death-stats").classed("hide", false)
+  showCaseCount(currentDate);
+  
+  //showCaseBubbleChart(currentDate);
 
   setTimeout(function() {
-    showDeathCount(currentDate);
-    d3.select(".death-stats").classed("hide", false)
-    showDeathWaffleChart(currentDate);
+    //showDeathDotChart(currentDate);
+    //showDeathWaffleChart(currentDate);
 
   },3000)
  
 
 })
 
-function onNewDate(date) {
+function onStopTimeline() {
+  setTimeout(function(d) {
+    d3.select("#covid-death-counter").classed("hide", true)
+    showDeathWaffleChart(currentDate);    
+  }, 2000)
+}
+
+function onTimelineTick(date) {
   var formatDate = d3.timeFormat("%Y-%m-%d");
   currentDate = formatDate(date);
 
@@ -94,8 +110,9 @@ function onNewDate(date) {
   restyleCountyLayer(layers.covid_cases_counties)
   restyleCountyLayer(layers.covid_deaths_counties)
 
-  showCaseBubbleChart(currentDate)
-  showDeathCount(currentDate)
+  //showCaseBubbleChart(currentDate)
+  showCaseCount(currentDate)
+  showDeathDotChart(currentDate)
 } 
 
 function showCaseBubbleChart(date) {
@@ -120,10 +137,16 @@ function showCaseBubbleChart(date) {
   d3.select("#covid-case-counter").text(d3.format(".3s")(totalCases))
 
   selection.datum(bubbleData)
-  bubbleCases(selection)
+  bubbleChartCases(selection)
 }
 
-function showDeathCount(date) {
+function showCaseCount(date) {
+  let totalCases = Object.keys(stateMap).map(function (key) { 
+    return stateMap[key].dates[date] ? +stateMap[key].dates[date].cases : 0; 
+  })    
+  .reduce(function(total,val) {
+    return total + val
+  }, 0)
   let totalDeaths = Object.keys(stateMap).map(function (key) { 
     return stateMap[key].dates[date] ? +stateMap[key].dates[date].deaths : 0; 
   })    
@@ -131,11 +154,43 @@ function showDeathCount(date) {
     return total + val
   }, 0)
 
+  covidDeaths = totalDeaths;
+
+  d3.select("#covid-case-counter").text(d3.format(".2s")(totalCases))
+
+  d3.select("#covid-death-counter").classed("hide", false)
   d3.select("#covid-death-counter").text(d3.format(",")(totalDeaths))
 
 }
 
+function showDeathDotChart(date) {
+  d3.select("#dot-chart").classed("hide", false);
+  d3.select(".waffle-chart").classed("hide", true)
+
+  let selection = d3.select("#dot-chart");
+  deathPoints = [];
+  for (var key in stateMap) {
+    if (stateMap[key].dates[date]) {
+      let deaths = stateMap[key].dates[date].deaths;
+      if (deaths < 50) {
+        deathPoints.push({ID: key + "-0", value: deathFactor})        
+      }
+      else {
+        let deathsPer50 = deaths / deathFactor
+        for (var i = 0; i < deathsPer50; i++) {
+          deathPoints.push({ID: key + "-" + i, value: deathFactor})
+        }
+      }
+    }
+  }
+
+  selection.datum(deathPoints)
+  dotChartDeaths(selection)
+}
+
 function showDeathWaffleChart(date) {
+  d3.select("#dot-chart").classed("hide", true);
+  d3.select(".waffle-chart").classed("hide", false)
 
   fillWaffleChart(deathData)  
 }

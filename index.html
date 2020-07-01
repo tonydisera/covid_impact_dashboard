@@ -69,36 +69,38 @@
        <h4>US COVID Dashboard</h4>
 
        <div class="case-stats hide">
-         <div style="text-align:center">
-           <span id="covid-case-counter"></span>
-           <span class="covid-counter-header">Cases</span>
-         </div>
          <div id="bubblechart" style="text-align:center">
          </div>
       </div>
       
-      <div class="death-stats hide">
-         <div style="text-align:center">
+      <div class="death-stats hide" style="text-align:center">
+         <span style="text-align:center">
            <span id="covid-death-counter"></span>
            <span class="covid-counter-header">Deaths</span>
+         </span>
+         <div id="dot-chart" class="hide" >
          </div>
-         <div class="waffle-chart" style="margin-top:10px">
+         <div class="waffle-chart hide" style="margin-top:10px">
          </div>
       </div>
 
     </div>
 
      <div id="two" class="split" >
-        <div style="height:100px">
+        <div class="top-panel" >
           <div id="timeslider">
             <button id="play-button">Play</button>
+          </div>
+          <div style="text-align:center">
+           <span>
+             <span id="covid-case-counter"></span>
+             <span class="covid-counter-header">Cases</span>
+           </span>
           </div>
         </div>
         <div class="map-wrapper" >
           <div class="map" id="mapid1"></div>
         </div>
-
-
      </div>
     
   </div>
@@ -112,6 +114,7 @@
 <link rel="stylesheet" href="js/charts/timeslider/timeslider.css">
 <script src="js/charts/timeslider/timeslider.js"></script>
 
+<script src="js/charts/dotchart/dotChart.js"></script>
 <script src="js/charts/bubblechart/bubbleChart.js"></script>
 
 

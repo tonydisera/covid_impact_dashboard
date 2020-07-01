@@ -32,6 +32,9 @@ fillWaffleChart = function(theWaffleData) {
 
   let graph = d3.select(".waffle-chart");
   
+  d3.selectAll(".box-container").remove();
+  d3.selectAll(".label-container").remove();
+  d3.selectAll(".count-container").remove();
 
   let group = graph
     .selectAll(".box-container")
@@ -53,6 +56,18 @@ fillWaffleChart = function(theWaffleData) {
     .attr("class", "box")
     .style("background-color", (d,i) => scaleColor(d.name));
 
+  let counts = group
+    .append("div")
+    .attr("class", "count-container")
+    .text(function(d) {
+      return d3.format(",")(d.values[0].deaths);
+    })
+    .style("opacity", 0)
+
+  counts.transition()
+        .delay(5000)
+        .style("opacity", 1)
+
 
 
 
@@ -65,7 +80,7 @@ fillWaffleChart = function(theWaffleData) {
       grid: "auto",
       from: "start",
       axis: "y",
-      each: 0.08
+      each: 0.02
     }
   });
 

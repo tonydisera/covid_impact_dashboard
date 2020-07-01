@@ -5,22 +5,40 @@ h4 {
   font-weight: 400 !important;
 }
 
+
+.top-panel {
+  background-color: #3d3e52;
+  color: white;
+  height:150px
+}
+
+.map.leaflet-container {
+  width: 100% !important;
+  height: calc(100% - 150px) !important;
+}
+
+#dot-chart {
+  margin-top:10px;
+  display: flex;
+  justify-content: space-around;
+}
+
 .covid-counter-header {
   display: inline-block;
   font-size: 20px;
   font-weight: 300;
+  padding-left: 4px;
 }
 #covid-case-counter {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 300;
   display: inline-block;
-  width: 180px;
 }
 #covid-death-counter {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 300;
   display: inline-block;
-  width: 180px;
+  width: 110px;
 }
 
 
@@ -47,10 +65,7 @@ h4 {
   margin-top: -5px;
 }
 
-.map.leaflet-container {
-  width: 100% !important;
-  height: calc(100% - 100px) !important;
-}
+
 
 .leaflet-container {
   font-family: 'Raleway', sans-serif !important;
@@ -340,23 +355,6 @@ h4 {
   width: 100px;
 }
 
-.nigeria .info-panel {
-  width: 250px;
-  height: 80px;
-}
-.nigeria .info-panel-table {
-  font-size: 12px;
-  max-width: 230px;
-  min-width: 230px;
-
-}
-.nigeria .info-panel-table tr.detail {
-  border-top: thin solid lightgray;
-}
-.nigeria .info-panel-table tr.detail td {
-  min-width: 150px;
-}
-
 
 
 
@@ -385,8 +383,4 @@ h4 {
 .chart .form-check {
   margin-left: 35px;
   margin-top: -5px;
-}
-.nigeria .chart .form-check {
-  margin-left: 35px;
-  margin-top: 0px;
 }

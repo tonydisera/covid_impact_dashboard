@@ -78,6 +78,7 @@ playButton
       clearInterval(timer);
       // timer = 0;
       button.text("Play");
+      onStopTimeline();
     } else {
       moving = true;
       timer = setInterval(step, 175);
@@ -100,7 +101,7 @@ function step() {
     clearInterval(timer);
     // timer = 0;
     playButton.text("Play");
-    console.log("Slider moving: " + moving);
+    onStopTimeline();
   }
 }
 
@@ -111,5 +112,5 @@ function update(h) {
     .attr("x", x(h))
     .text(formatDate(h));
 
-  onNewDate(h)
+  onTimelineTick(h)
 }
