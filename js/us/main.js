@@ -1,7 +1,7 @@
 
 Split(['#one', '#two'], {
-    sizes:       [35, 70],
-    minSize:     [400, 500],
+    sizes:       [40, 60],
+    minSize:     [500, 500],
     expandToMin: true,
     gutterSize:  10
 })
@@ -82,13 +82,7 @@ promiseParseCovidStateData(layers.covid_cases_states)
   d3.select(".death-stats").classed("hide", false)
   showCaseCount(currentDate);
   
-  //showCaseBubbleChart(currentDate);
-
-  setTimeout(function() {
-    //showDeathDotChart(currentDate);
-    //showDeathWaffleChart(currentDate);
-
-  },3000)
+  getCountsByState(currentDate)
  
 
 })
@@ -98,7 +92,7 @@ function onStopTimeline() {
     showCaseCount(asOfDate);
     d3.select("#covid-death-counter").classed("hide", true)
     showDeathWaffleChart(asOfDate);    
-  }, 2000)
+  }, 500)
 }
 
 function onTimelineTick(date) {
@@ -141,6 +135,66 @@ function showCaseBubbleChart(date) {
   bubbleChartCases(selection)
 }
 
+function getCountsByState(date) {
+
+  let countMap = {}
+
+  let stateCounts = Object.keys(stateMap).map(function (key) { 
+    if (stateMap[key].dates[date]) { 
+      return {key: key, 
+        state: stateMap[key].state,
+        stateAbbr: stateMap[key].stateAbbr,
+        cases: +stateMap[key].dates[date].cases, 
+        deaths: +stateMap[key].dates[date].deaths
+      }
+    } else {
+      return null;
+    }
+  })
+ 
+
+
+  stateCounts.forEach(function(stateCount) {
+    let counts = countMap[stateCount.key];
+    if (counts == null) {
+      counts = {cases: 0, deaths: 0, state: stateCount.state, stateAbbr: stateCount.stateAbbr, key: stateCount.key}
+      countMap[stateCount.key] = counts;
+    }
+    counts.cases += stateCount.cases;
+    counts.deaths += stateCount.deaths;
+  })
+
+  countsByState = Object.keys(countMap).map(function(key) {
+    return countMap[key];
+  })
+
+  console.log(getRankedStatesByDeath())
+}
+
+function getRankedStatesByDeath() {
+  return countsByState.sort(function(a,b) {
+    if (a.deaths > b.deaths) {
+      return -1;
+    } else if (a.deaths < b.deaths) {
+      return 1
+    } else {
+      return 0;
+    }
+  })
+}
+
+function getRankedStatesByCases() {
+  return countsByState.sort(function(a,b) {
+    if (a.cases > b.cases) {
+      return -1;
+    } else if (a.cases < b.cases) {
+      return 1
+    } else {
+      return 0;
+    }
+  })
+}
+
 function showCaseCount(date) {
   let totalCases = Object.keys(stateMap).map(function (key) { 
     return stateMap[key].dates[date] ? +stateMap[key].dates[date].cases : 0; 
@@ -170,6 +224,8 @@ function showCaseCount(date) {
 function showDeathDotChart(date) {
   d3.select("#dot-chart").classed("hide", false);
   d3.select(".waffle-chart").classed("hide", true)
+  d3.select("#state-death-waffle-header").classed("hide", true)
+  d3.select("#state-death-waffle-chart").classed("hide", true)
 
   let selection = d3.select("#dot-chart");
   deathPoints = [];
@@ -194,7 +250,29 @@ function showDeathDotChart(date) {
 
 function showDeathWaffleChart(date) {
   d3.select("#dot-chart").classed("hide", true);
-  d3.select(".waffle-chart").classed("hide", false)
+  d3.select("#death-waffle-chart").classed("hide", false)
+  fillWaffleChart(deathData, "#death-waffle-chart")  
 
-  fillWaffleChart(deathData)  
+  setTimeout(function(d) {
+    let rankedStates = getRankedStatesByDeath();
+    stateDeathData = []
+    for (i = 0; i < 5; i++) {
+      let deathObject = {
+        name: rankedStates[i].state,
+        capacity: (rankedStates[0].deaths + 100 )/deathFactor,
+        boxes: rankedStates[i].deaths/deathFactor,
+        deaths: rankedStates[i].deaths,
+        color: "#FF4941"
+      };
+      stateDeathData.push(deathObject);
+    }
+    d3.select("#state-death-waffle-header").classed("hide", false)
+    d3.select("#state-death-waffle-chart").classed("hide", false)
+    fillWaffleChart(stateDeathData, "#state-death-waffle-chart", false)      
+  }, 6000)
+
+
 }
+
+
+

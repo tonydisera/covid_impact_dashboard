@@ -1,6 +1,9 @@
 #timeslider {
   fill: white;
   color: white;
+  display: flex;
+  flex-flow: column;
+  padding-top: 10px;
 }
 
 #timeslider .label {

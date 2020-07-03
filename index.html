@@ -80,7 +80,11 @@
          </span>
          <div id="dot-chart" class="hide" >
          </div>
-         <div class="waffle-chart hide" style="margin-top:10px">
+         <div id="death-waffle-chart" class="waffle-chart hide" style="margin-top:10px">
+         </div>
+
+         <div id="state-death-waffle-header" class="covid-counter-header hide" style="margin-top:20px">States with highest deaths</div>
+         <div id="state-death-waffle-chart" class="waffle-chart hide" style="margin-top:10px">
          </div>
       </div>
 
@@ -89,13 +93,15 @@
      <div id="two" class="split" >
         <div class="top-panel" >
           <div id="timeslider">
-            <button id="play-button">Play</button>
-          </div>
-          <div style="text-align:center">
-           <span>
-             <span id="covid-case-counter"></span>
-             <span class="covid-counter-header">Cases</span>
-           </span>
+            <div style="display:flex">
+              <button id="play-button">Play</button>
+              <div style="display:flex;flex-grow:2;justify-content: center">
+               <span>
+                 <span id="covid-case-counter"></span>
+                 <span class="covid-counter-header">Cases</span>
+               </span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="map-wrapper" >

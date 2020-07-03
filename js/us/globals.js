@@ -15,6 +15,9 @@ var countyInfoMap = {}
 var bubbleChartCases = null;
 var bubbleData = null;
 
+var countsByState = {}
+
+
 var dotChartDeaths = null;
 var deathPoints = null;
 
@@ -27,7 +30,8 @@ let covidDeaths = {
     "name": "COVID-19",
     "capacity": 0,
     'deaths': 0,
-    "boxes": 0
+    "boxes": 0,
+    "color": "#FF4941"
   }
 
 let deathData = [
@@ -36,25 +40,33 @@ let deathData = [
     "name": "9/11",
     "capacity": 130000/deathFactor,
     'deaths': 3000,
-    "boxes": 3000/deathFactor
+    "boxes": 3000/deathFactor,
+    "color": "#FF8E79"
   },
   {
     "name": "Korean War",
     "capacity": 130000/deathFactor,
     "deaths": 36574,
-    "boxes": 36574/deathFactor
+    "boxes": 36574/deathFactor,
+    "color": "#FF8E79"
   },
   {
   	"name": "Vietnam War",
   	"capacity": 130000/deathFactor,
     "deaths": 58200,
-  	"boxes": 58200/deathFactor
+  	"boxes": 58200/deathFactor,
+    "color": "#FF8E79"
+
   },
   {
   	"name": "World War I",
   	"capacity": 130000/deathFactor,
     "deaths": 116500,
-  	"boxes": 116500/deathFactor
+  	"boxes": 116500/deathFactor,
+    "color": "#FF8E79"
+
   },
   covidDeaths
 ]
+
+let stateDeathData = []

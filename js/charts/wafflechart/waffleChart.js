@@ -19,9 +19,10 @@ uncount = (data, accessor) =>
   }, []);
 
 
-fillWaffleChart = function(theWaffleData) {
+fillWaffleChart = function(theWaffleData, selector, animate=true) {
 
   waffleData = theWaffleData;
+  let selection = d3.select(selector);
 
   const boxes = uncount(waffleData, d => d.boxes);
 
@@ -30,31 +31,41 @@ fillWaffleChart = function(theWaffleData) {
     .key(d => d.name)
     .entries(boxes);
 
-  let graph = d3.select(".waffle-chart");
+  let graph = selection;
   
-  d3.selectAll(".box-container").remove();
-  d3.selectAll(".label-container").remove();
-  d3.selectAll(".count-container").remove();
+  graph.selectAll(".outer-container").remove();
+  graph.selectAll(".box-container").remove();
+  graph.selectAll(".label-container").remove();
+  graph.selectAll(".count-container").remove();
 
-  let group = graph
-    .selectAll(".box-container")
-    .data(nest)
-    .join("div")
-    .attr("class", "box-container");
+  let outerGroup = graph.selectAll(".group-container")
+                        .data(nest)
+                        .join("div")
+                        .attr("class", "group-container")
+                        .style("opacity", animate ? 1 : 0)
 
-  group
+  let labels = outerGroup
     .append("div")
     .attr("class", "label-container")
     .text(function(d) {
       return d.key;
     })
+    .style("opacity", animate ? 0 : 1 )
+
+  let group = outerGroup
+    .append("div")
+    .attr("class", "box-container")
+
 
   group
     .selectAll(".box")
-    .data(d => d.values)
+    .data(function(d)  {
+      return d.values
+    })
     .join("div")
     .attr("class", "box")
-    .style("background-color", (d,i) => scaleColor(d.name));
+    //.style("background-color", (d,i) => scaleColor(d.name));
+    .style("background-color", d => d.color)
 
   let counts = group
     .append("div")
@@ -62,32 +73,50 @@ fillWaffleChart = function(theWaffleData) {
     .text(function(d) {
       return d3.format(",")(d.values[0].deaths);
     })
-    .style("opacity", 0)
+    .style("opacity",  animate ? 0 : 1 )
 
-  counts.transition()
-        .delay(5000)
-        .style("opacity", 1)
 
+  if (animate) {
+    counts.transition()
+          .delay(5000)
+          .style("opacity", 1)
+
+    labels.transition()
+          .duration(function(d,i) {
+            return i*1000;
+          })
+          .style("opacity", 1)
+
+  } else {
+    outerGroup.transition()
+          .duration(function(d,i) {
+            return i*1000;
+          })
+          .style("opacity", 1)
+
+  }
 
 
 
   //intitiate paused animation
-  let anim = new TimelineLite({paused: true});
-  anim.staggerTo(".box", 1, {
-    scale: 1,
-    ease: Back.easeOut,
-    stagger: {
-      grid: "auto",
-      from: "start",
-      axis: "y",
-      each: 0.02
-    }
-  });
+  if (animate) {
+    let anim = new TimelineLite({paused: true});
+    anim.staggerTo(selector + " .box", 1, {
+      scale: 1,
+      ease: Back.easeOut,
+      stagger: {
+        grid: "auto",
+        from: "start",
+        axis: "y",
+        each: 0.02
+      }
+    });
 
 
 
-  if(!anim.isActive()) {
-    anim.play(0);
+    if(!anim.isActive()) {
+      anim.play(0);
+    }    
   }
 }
 

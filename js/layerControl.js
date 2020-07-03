@@ -199,7 +199,7 @@ var registerMapOverlaysGrouped = function(mapName, defaultLayerName) {
 
   setTimeout(function() {
     uncheckAllLayersExcept('map', defaultLayer.title)
-  },1000)
+  },2000)
 }
 
 var expandLayerControl = function(mapName) {

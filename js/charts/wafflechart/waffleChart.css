@@ -2,7 +2,7 @@
 .waffle-chart {
   display: flex;
   justify-content: space-between;
-  padding-left: 5px;
+  padding-left: 0px;
   padding-right: 5px;
 }
 
@@ -17,12 +17,21 @@
   display: flex;
   flex-wrap: wrap-reverse;
   margin: 2px;
-  width: 90px;
-  height: 570px;
+  width: 110px;
+  height: 420px;
   justify-content: flex-start;
   align-content: flex-start;
 }
 
+#state-death-waffle-chart.waffle-chart .box-container {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  margin: 2px;
+  width: 40px;
+  height: 200px;
+  justify-content: flex-start;
+  align-content: flex-start;
+}
 .waffle-chart .box {
   width: 5px;
   height: 5px;
@@ -38,17 +47,45 @@
 .waffle-chart .label-container, .count-container {
   display: flex;
   margin: 2px;
-  width: 90px;
+  width: 110px;
   height: 20px;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 20px;
   font-weight: 400;
   justify-content: center;
 }
 
 .waffle-chart .count-container {
-  font-size: 16px;
+  font-size: 14px;
 }
-.waffle-chart .container:last-child .label-container {
-  font-weight: 600;
+
+
+#state-death-waffle-chart  {
+  flex-flow: row;
+  width: 500px;
+  flex-wrap: wrap;
+}
+.waffle-chart .group-container {
+  display: flex;
+  flex-flow: column-reverse;
+}
+#state-death-waffle-chart.waffle-chart .group-container {
+  display: flex;
+  flex-flow: row;
+}
+#state-death-waffle-chart .group-container .box-container {
+  width: 400px;
+  height: 40px;
+  flex-flow: column;
+  flex-wrap: wrap;
+}
+#state-death-waffle-chart .count-container {
+  width: unset;
+  padding-left: 4px;
+}
+#state-death-waffle-chart .label-container {
+  justify-content: flex-start;
+}
+#state-death-waffle-chart.waffle-chart .box {
+  transform: unset;
 }

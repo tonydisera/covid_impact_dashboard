@@ -9,12 +9,12 @@ h4 {
 .top-panel {
   background-color: #3d3e52;
   color: white;
-  height:150px
+  height:180px
 }
 
 .map.leaflet-container {
   width: 100% !important;
-  height: calc(100% - 150px) !important;
+  height: calc(100% - 180px) !important;
 }
 
 #dot-chart {

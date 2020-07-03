@@ -1,5 +1,5 @@
 var formatDateIntoYear = d3.timeFormat("%b %d");
-var formatDate = d3.timeFormat("%b %d %Y");
+var formatDate = d3.timeFormat("%b %Y");
 var parseDate = d3.timeParse("%m/%d/%y");
 
 var startDate = new Date("2020-03-13"),
@@ -83,7 +83,7 @@ playButton
       onStopTimeline();
     } else {
       moving = true;
-      timer = setInterval(step, 175);
+      timer = setInterval(step, 125);
       button.text("Pause");
     }
   })
