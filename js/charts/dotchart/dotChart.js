@@ -1,5 +1,5 @@
 function dotChart() {
-  var w = 500, h = 500;
+  var w = 300, h = 400;
   
 
   var svg = null;

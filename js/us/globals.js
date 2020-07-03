@@ -25,7 +25,7 @@ var deathPoints = null;
 var newYorkCountyFips = "36061";
 
 
-let deathFactor = 100
+let deathFactor = 200
 let covidDeaths = {
     "name": "COVID-19",
     "capacity": 0,

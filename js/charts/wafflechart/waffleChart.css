@@ -1,24 +1,30 @@
 /* the outer beige container */
 .waffle-chart {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-left: 0px;
   padding-right: 5px;
 }
 
+.waffle-chart .group-container {
+  display: flex;
+  flex-flow: column-reverse;
+  margin-right: 10px;
+}
+
+
 .waffle-chart .container {
   display: flex;
   align-content: flex-bottom;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: column;
 }
 
 .waffle-chart .box-container {
   display: flex;
   flex-wrap: wrap-reverse;
-  margin: 2px;
-  width: 110px;
-  height: 420px;
+  width: 60px;
+  height: 360px;
   justify-content: flex-start;
   align-content: flex-start;
 }
@@ -47,7 +53,7 @@
 .waffle-chart .label-container, .count-container {
   display: flex;
   margin: 2px;
-  width: 110px;
+  width: 60px;
   height: 20px;
   font-size: 16px;
   line-height: 20px;
@@ -62,19 +68,17 @@
 
 #state-death-waffle-chart  {
   flex-flow: row;
-  width: 500px;
+  width: 300px;
   flex-wrap: wrap;
-}
-.waffle-chart .group-container {
-  display: flex;
-  flex-flow: column-reverse;
+  justify-content: flex-start;
+
 }
 #state-death-waffle-chart.waffle-chart .group-container {
   display: flex;
   flex-flow: row;
+
 }
 #state-death-waffle-chart .group-container .box-container {
-  width: 400px;
   height: 40px;
   flex-flow: column;
   flex-wrap: wrap;
@@ -85,6 +89,7 @@
 }
 #state-death-waffle-chart .label-container {
   justify-content: flex-start;
+  width: 120px;
 }
 #state-death-waffle-chart.waffle-chart .box {
   transform: unset;

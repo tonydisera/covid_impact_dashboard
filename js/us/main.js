@@ -1,7 +1,7 @@
 
 Split(['#one', '#two'], {
-    sizes:       [40, 60],
-    minSize:     [500, 500],
+    sizes:       [30, 70],
+    minSize:     [400, 500],
     expandToMin: true,
     gutterSize:  10
 })
@@ -10,10 +10,15 @@ Split(['#one', '#two'], {
 var bounds      = [[38.459873-3,    -94.711468-1], [38.459873+3,   -94.711468+1 ]];
 var bounds_mask = [[38.459873-2.6,  -94.711468-1], [38.459873+2.6,  -94.711468+1]];
 var centerPoint = [38.459873, -94.711468];
-var defaultZoomLevel = 4.5;
+var defaultZoomLevel = 4.2;
 
 
 var map = L.map('mapid1', {zoomSnap: 0.1, zoomDelta: 0.25, zoomControl: false})
+
+var timeslider = timeslider()
+                  .width(900)
+                  .margin({top:60, right:70, bottom:10, left:70})
+timeslider(d3.select("#timeslider"));
 
 registerMap(map, 'map')
 
@@ -61,7 +66,7 @@ promiseParseCovidStateData(layers.covid_cases_states)
 .then(function() {
   addMapLegends('map');
 
-  expandLayerControl('map')
+  //expandLayerControl('map')
 
   addInfoPanel('map')
 
@@ -92,7 +97,7 @@ function onStopTimeline() {
     showCaseCount(asOfDate);
     d3.select("#covid-death-counter").classed("hide", true)
     showDeathWaffleChart(asOfDate);    
-  }, 500)
+  }, 1500)
 }
 
 function onTimelineTick(date) {

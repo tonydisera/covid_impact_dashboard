@@ -108,7 +108,7 @@ fillWaffleChart = function(theWaffleData, selector, animate=true) {
         grid: "auto",
         from: "start",
         axis: "y",
-        each: 0.02
+        each: 0.03
       }
     });
 
