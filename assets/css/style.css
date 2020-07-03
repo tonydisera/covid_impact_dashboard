@@ -5,16 +5,37 @@ h4 {
   font-weight: 400 !important;
 }
 
+.container-fluid {
+  padding: 0px;
+}
+#one {
+  padding: 5px;
+  background-color: #303030;
+  color: #f1f1f1;
+  padding-left: 20px;
+}
 
-.top-panel {
-  background-color: #3d3e52;
+.container-fluid {
+  background-color: #303030;  
+}
+
+.nav-panel {
+  background-color: #000000;
   color: white;
-  height:180px
+  text-align:center;
+  padding-top: 5px;
+  height: 40px;
+}
+
+.top-panel {  
+  background-color: #303030;
+  color: white;
+  height:160px
 }
 
 .map.leaflet-container {
   width: 100% !important;
-  height: calc(100% - 180px) !important;
+  height: calc(100% - 200px) !important;
 }
 
 #dot-chart {
@@ -42,15 +63,6 @@ h4 {
 }
 
 
-.container-fluid {
-  padding: 0px;
-}
-#one {
-  padding: 5px;
-  background-color: #3d3e53;
-  color: #f1f1f1;
-  padding-left: 20px;
-}
 
 
 #popup {

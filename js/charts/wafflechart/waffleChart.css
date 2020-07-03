@@ -24,7 +24,7 @@
   display: flex;
   flex-wrap: wrap-reverse;
   width: 60px;
-  height: 360px;
+  height: 400px;
   justify-content: flex-start;
   align-content: flex-start;
 }
@@ -76,10 +76,11 @@
 #state-death-waffle-chart.waffle-chart .group-container {
   display: flex;
   flex-flow: row;
+  margin-bottom: 3px;
 
 }
 #state-death-waffle-chart .group-container .box-container {
-  height: 40px;
+  height: 30px;
   flex-flow: column;
   flex-wrap: wrap;
 }

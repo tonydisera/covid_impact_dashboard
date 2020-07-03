@@ -64,17 +64,19 @@
  <div class="container-fluid us">
 
 
+  <div class="nav-panel">
+     <h4>US COVID-19</h4>
+  </div>
   <div style="display:flex;margin-top:0px;height: calc(100% - 0px);padding: 5px">
      <div id="one" class="split" style="overflow-y:auto">
-       <h4>US COVID Dashboard</h4>
 
        <div class="case-stats hide">
          <div id="bubblechart" style="text-align:center">
          </div>
       </div>
       
-      <div class="death-stats hide" style="text-align:center">
-         <span style="text-align:center">
+      <div class="death-stats hide" style="">
+         <span >
            <span id="covid-death-counter"></span>
            <span class="covid-counter-header">Deaths</span>
          </span>
@@ -96,11 +98,13 @@
             <div style="display:flex">
               <button id="play-button">Play</button>
               <div style="display:flex;flex-grow:2;justify-content: center">
-               <span>
+               <span style="margin-top:-5px">
                  <span id="covid-case-counter"></span>
                  <span class="covid-counter-header">Cases</span>
                </span>
               </div>
+            </div>
+            <div class="timeslider-chart" >
             </div>
           </div>
         </div>

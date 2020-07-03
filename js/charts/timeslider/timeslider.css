@@ -6,8 +6,13 @@
   padding-top: 10px;
 }
 
+#timeslider .timeslider-chart {
+  display: flex;
+  justify-content: center;
+}
+
 #timeslider .label {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 #play-button {

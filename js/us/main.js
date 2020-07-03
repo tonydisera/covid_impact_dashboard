@@ -3,7 +3,7 @@ Split(['#one', '#two'], {
     sizes:       [30, 70],
     minSize:     [400, 500],
     expandToMin: true,
-    gutterSize:  10
+    gutterSize:  5
 })
 
 // define rectangle geographical bounds
@@ -17,7 +17,7 @@ var map = L.map('mapid1', {zoomSnap: 0.1, zoomDelta: 0.25, zoomControl: false})
 
 var timeslider = timeslider()
                   .width(900)
-                  .margin({top:60, right:70, bottom:10, left:70})
+                  .margin({top:60, right:50, bottom:10, left:50})
 timeslider(d3.select("#timeslider"));
 
 registerMap(map, 'map')
@@ -95,7 +95,7 @@ promiseParseCovidStateData(layers.covid_cases_states)
 function onStopTimeline() {
   setTimeout(function(d) {
     showCaseCount(asOfDate);
-    d3.select("#covid-death-counter").classed("hide", true)
+    //d3.select("#covid-death-counter").classed("hide", true)
     showDeathWaffleChart(asOfDate);    
   }, 1500)
 }
@@ -230,7 +230,6 @@ function showDeathDotChart(date) {
   d3.select("#dot-chart").classed("hide", false);
   d3.select(".waffle-chart").classed("hide", true)
   d3.select("#state-death-waffle-header").classed("hide", true)
-  d3.select("#state-death-waffle-chart").classed("hide", true)
 
   let selection = d3.select("#dot-chart");
   deathPoints = [];

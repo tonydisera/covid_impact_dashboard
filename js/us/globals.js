@@ -1,8 +1,8 @@
 var stateMap = {}
 var countyMap = {}
 var groupedOverlays = {}
-var asOfDate    = "2020-06-29"
-var currentDate = "2020-06-29"
+var asOfDate    = "2020-07-01"
+var currentDate = "2020-07-01"
 var maxCasesState = 0;
 var maxCasesCounty= 0;
 var maxDeathsState = 0;
