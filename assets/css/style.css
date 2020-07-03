@@ -7,16 +7,16 @@ h4 {
 
 .container-fluid {
   padding: 0px;
+  background-color: #303030;  
 }
 #one {
   padding: 5px;
-  background-color: #303030;
+  background-color: #1b1b1b;
   color: #f1f1f1;
   padding-left: 20px;
 }
 
 .container-fluid {
-  background-color: #303030;  
 }
 
 .nav-panel {
@@ -28,7 +28,7 @@ h4 {
 }
 
 .top-panel {  
-  background-color: #303030;
+  background-color: #1b1b1b;
   color: white;
   height:160px
 }
