@@ -29,6 +29,7 @@ activateLayers('map', [
   'covid_deaths_counties',
   'covid_cases_states', 
   'covid_deaths_states',
+  'covid_cases_counties_markers'
   ], true)
 
 registerMapOverlaysGrouped('map', 'covid_cases_counties');
@@ -59,6 +60,10 @@ promiseParseCovidStateData(layers.covid_cases_states)
 })
 .then(function() {
   return promiseAddCountyLayer(map, layers.covid_cases_counties);  
+})
+.then(function() {
+  //return Promise.resolve();
+  return promiseAddMarkers(layers.covid_cases_counties_markers);  
 })
 .then(function() {
   return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
@@ -112,6 +117,7 @@ function onTimelineTick(date) {
   //showCaseBubbleChart(currentDate)
   showCaseCount(currentDate)
   showDeathDotChart(currentDate)
+  setMarkerSize(layers.covid_cases_counties_markers)
 } 
 
 function showCaseBubbleChart(date) {

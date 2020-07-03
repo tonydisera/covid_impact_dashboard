@@ -165,6 +165,7 @@ var layers = {
         false, false)
     },
   },
+
   'covid_deaths_counties': {
     dataDate: "2020-06-27",    
     active: false,
@@ -210,6 +211,58 @@ var layers = {
         10, .1,
         true, true)
     },
-  }
+  },
+
+
+
+  'covid_cases_counties_markers': {
+    dataDate: "2020-06-27",    
+    active: false,
+    overlay: true,
+    title: 'Cases by county (circles)',
+    group: 'COVID',
+    groupExclusive: true,
+    file: "./data/nytimes-us-counties.csv",
+    getRadius: function(value) {
+      return value / 10;
+    },
+    leafletLayer: null,
+    popupFields: {
+      'county': 'County',
+      'countyFips': 'County fips',
+      'stateFips': 'State fips'    
+    },
+    countField: 'cases',
+    dataMap: countyMap,
+    getValue: function(countyObject) {
+      if (countyObject && countyObject.dates && countyObject.dates[currentDate]) {      
+        let val = countyObject.dates[currentDate][layers.covid_cases_counties.countField];
+        if ( val && val != '' && val != 'NA') {
+          return parseInt(val);
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    },
+    createColorScale: function() {
+      var data = Object.keys(countyMap).map(function (key) { 
+        if (countyMap[key].dates[currentDate]) {
+          return +countyMap[key].dates[currentDate][layers.covid_cases_counties.countField]; 
+        } else {
+          return 0;
+        }
+      }); 
+      var percentile_95 = ss.quantile(data, .95)
+
+      createColorScale('covid_cases_counties', 
+        [0, percentile_95], 
+        d3.interpolateYlOrRd, .3, 
+        'COVID-19 cases by county level',
+        10, .1,
+        false, false)
+    },
+  },  
 }
 

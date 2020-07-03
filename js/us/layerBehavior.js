@@ -163,6 +163,73 @@ var promiseAddCountyLayer = function(map, layer) {
 }
 
 
+var promiseAddMarkers = function(layer) {
+  return new Promise(function(resolve, reject) {
+
+    let data = Object.keys(layer.dataMap).map(function(key) {
+      return layer.dataMap[key]
+    })
+    let maxValue = d3.max(data, function(d, i) {
+      return layer.getValue(d)
+    })
+    if (layer.scale == null) {
+      layer.scale = d3.scaleLinear().domain([0, maxValue]).range([2,60])
+    }
+
+    function getRadius(row) {
+      let value = layer.getValue(row);
+      if (value > 0) {
+        return layer.scale(value);
+      } else {
+        return 0;
+      }
+    } 
+    
+    if (layer.active) {
+      data.forEach(function(row) {
+        if (row.lat  && row.lng) {
+          let val = layer.getValue(row);
+
+          var circle = L.circleMarker([row.lat,  row.lng], {
+            radius: getRadius(row),
+            fillColor: "#d60000",
+            color: "#000",
+            weight: 1,
+            opacity: .7,
+            fillOpacity: 0.4,
+            dataObject: row,
+          }).addTo(layer.leafletLayer);
+
+
+
+        }
+
+        resolve();
+      });      
+    } else {
+      resolve();
+    }
+  
+    
+  })
+}
+
+var setMarkerSize = function(layer) {
+
+  function getRadius(d) {
+    let value = layer.getValue(d.options.dataObject);
+    if (value == 0) {
+      return 0;
+    } else {
+      return layer.scale(value);
+    }
+  }
+  layer.leafletLayer.eachLayer(function (marker) {      
+    marker.setRadius(getRadius(marker));
+  });    
+}
+
+
 var promiseParseCovidStateData = function(layer) {
   return new Promise(function(resolve, reject) {
     d3.csv(layer.file).then(function(data) {
