@@ -11,7 +11,7 @@ h4 {
 }
 #one {
   padding: 5px;
-  background-color: #1b1b1b;
+  background-color: #333949;
   color: #f1f1f1;
   padding-left: 20px;
 }
@@ -20,7 +20,7 @@ h4 {
 }
 
 .nav-panel {
-  background-color: #000000;
+  background-color: #333949;
   color: white;
   text-align:center;
   padding-top: 5px;
