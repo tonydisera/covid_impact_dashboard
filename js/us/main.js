@@ -95,7 +95,6 @@ promiseParseCovidStateData(layers.covid_cases_states)
 function onStopTimeline() {
   setTimeout(function(d) {
     showCaseCount(asOfDate);
-    //d3.select("#covid-death-counter").classed("hide", true)
     showDeathWaffleChart(asOfDate);    
   }, 1500)
 }
@@ -229,6 +228,7 @@ function showCaseCount(date) {
 function showDeathDotChart(date) {
   d3.select("#dot-chart").classed("hide", false);
   d3.select(".waffle-chart").classed("hide", true)
+  d3.select("#state-death-waffle-chart").classed("hide", true)
   d3.select("#state-death-waffle-header").classed("hide", true)
 
   let selection = d3.select("#dot-chart");
