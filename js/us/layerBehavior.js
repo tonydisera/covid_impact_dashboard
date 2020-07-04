@@ -7,7 +7,7 @@ var promiseAddStateLayer = function(map, layer) {
         return {
           className: 'region-polygon',
           fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP) : 'transparent',
-          fillOpacity: .8,
+          fillOpacity: 1,
           color: '#8c8c8c',
           weight: 1
        };
@@ -69,8 +69,8 @@ var restyleStateLayer = function(layer) {
   function regionStyle(feature) {
     return {
       className: 'region-polygon',
-      fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP) : 'transparent',
-      fillOpacity: .8,
+      fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP) : 'white',
+      fillOpacity: 1,
       color: '#8c8c8c',
       weight: 1
    };
@@ -84,10 +84,10 @@ var restyleCountyLayer = function(layer) {
   function regionStyle(feature) {
     return {
       className: 'region-polygon',
-      fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP + feature.properties.COUNTYFP) : 'transparent',
-      fillOpacity: .8,
+      fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP + feature.properties.COUNTYFP) : 'white',
+      fillOpacity: 1,
       color: '#cccccc',
-      weight: .5
+      weight: 1
    };
   }
   layer.leafletLayer.eachLayer(function(featureLayer) {
@@ -103,10 +103,10 @@ var promiseAddCountyLayer = function(map, layer) {
       function regionStyle(feature) {
         return {
           className: 'region-polygon',
-          fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP + feature.properties.COUNTYFP) : 'transparent',
-          fillOpacity: .8,
+          fillColor: layer.getColor ? layer.getColor(feature.properties.STATEFP + feature.properties.COUNTYFP) : 'white',
+          fillOpacity: 1,
           color: '#cccccc',
-          weight: .5
+          weight: 1
        };
       }
         
@@ -145,7 +145,7 @@ var promiseAddCountyLayer = function(map, layer) {
             featureLayer.on('mouseout', function() {
               this.setStyle({
                   color: '#cccccc',
-                  weight: .5
+                  weight: 1
 
               });
               removeHighlights();
@@ -173,7 +173,7 @@ var promiseAddMarkers = function(layer) {
       return layer.getValue(d)
     })
     if (layer.scale == null) {
-      layer.scale = d3.scaleLinear().domain([0, maxValue]).range([2,60])
+      layer.scale = d3.scaleLinear().domain([0, maxValue]).range([2,100])
     }
 
     function getRadius(row) {
@@ -192,11 +192,11 @@ var promiseAddMarkers = function(layer) {
 
           var circle = L.circleMarker([row.lat,  row.lng], {
             radius: getRadius(row),
-            fillColor: "#d60000",
-            color: "#000",
+            fillColor: "#ff6666",
+            color: "#e63939",
             weight: 1,
-            opacity: .7,
-            fillOpacity: 0.4,
+            opacity: 1,
+            fillOpacity: .6,
             dataObject: row,
           }).addTo(layer.leafletLayer);
 

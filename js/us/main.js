@@ -26,10 +26,11 @@ activateLayers('map', [
   'states', 
   'counties', 
   'covid_cases_counties',
+  'covid_cases_counties_markers',  
   'covid_deaths_counties',
   'covid_cases_states', 
   'covid_deaths_states',
-  'covid_cases_counties_markers'
+
   ], true)
 
 registerMapOverlaysGrouped('map', 'covid_cases_counties');
@@ -85,7 +86,7 @@ promiseParseCovidStateData(layers.covid_cases_states)
 
   dotChartDeaths = dotChart();
   dotChartDeaths.fillColor(function(d,i) {
-    return "#FF6B5B";
+    return deathColor;
   })
 
   d3.select(".case-stats").classed("hide", false)
@@ -105,6 +106,8 @@ function onStopTimeline() {
 }
 
 function onTimelineTick(date) {
+
+
   var formatDate = d3.timeFormat("%Y-%m-%d");
   currentDate = formatDate(date);
 
@@ -118,6 +121,13 @@ function onTimelineTick(date) {
   showCaseCount(currentDate)
   showDeathDotChart(currentDate)
   setMarkerSize(layers.covid_cases_counties_markers)
+
+
+
+  darkMode.addTo(map)
+  uncheckAllLayersExcept("map", "Cases by county (circles)")
+  checkLayer("map", "covid_cases_counties_markers")
+
 } 
 
 function showCaseBubbleChart(date) {
@@ -272,7 +282,7 @@ function showDeathWaffleChart(date) {
         capacity: (rankedStates[0].deaths + 100 )/deathFactor,
         boxes: rankedStates[i].deaths/deathFactor,
         deaths: rankedStates[i].deaths,
-        color: "#FF4941"
+        color: deathColor
       };
       stateDeathData.push(deathObject);
     }

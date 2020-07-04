@@ -12,7 +12,7 @@ var registerMap = function(map, mapName) {
   let mapObject = mapLayers[mapName]
   mapObject.map = map;
 
-  var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  lightMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 19
@@ -24,7 +24,12 @@ var registerMap = function(map, mapName) {
   maxZoom: 19
   });
 
-  CartoDB_Positron.addTo(map)
+  darkMode = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+  maxZoom: 20,
+  attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+  });
+
+  lightMode.addTo(map)
 }
 
 var addMinimap = function(mapName, zoomLevel) {
@@ -68,6 +73,17 @@ var uncheckLayer = function(mapName, layerName) {
   let layer = layers[layerName];
 
   mapObject.map.removeLayer(layer.leafletLayer)
+  if (layer.showLegend) {
+    layer.showLegend(false)
+  }
+}
+
+var checkLayer = function(mapName, layerName) {
+  let mapObject = mapLayers[mapName];
+
+  let layer = layers[layerName];
+
+  mapObject.map.addLayer(layer.leafletLayer)
   if (layer.showLegend) {
     layer.showLegend(false)
   }
@@ -362,10 +378,10 @@ function createColorScale(layerKey, domain, interpolater, darkenStep,
       if (scaledValue) {
         return layer.colorScale(scaledValue)
       } else {
-        return 'transparent';
+        return 'white';
       }        
     } else {
-      return 'transparent';
+      return 'white';
     }
   };
 

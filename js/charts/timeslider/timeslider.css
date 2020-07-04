@@ -1,6 +1,6 @@
 #timeslider {
-  fill: #323232;
-  color: #323232;
+  fill: white;
+  color: white;
   display: flex;
   flex-flow: column;
   padding-top: 10px;

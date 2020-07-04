@@ -11,8 +11,8 @@ h4 {
 }
 #one {
   padding: 5px;
-  background-color: #333949;
-  color: #f1f1f1;
+  background-color: #222323;
+  color: white;
   padding-left: 20px;
 }
 
@@ -20,7 +20,7 @@ h4 {
 }
 
 .nav-panel {
-  background-color: #333949;
+  background-color: #222323;
   color: white;
   text-align:center;
   padding-top: 5px;
@@ -28,14 +28,14 @@ h4 {
 }
 
 .top-panel {  
-  background-color: white;
-  color: #1b1b1b;
+  background-color: #222323;
+  color: white;
   height:160px
 }
 
 .map.leaflet-container {
   width: 100% !important;
-  height: calc(100% - 200px) !important;
+  height: calc(100% - 160px) !important;
 }
 
 #dot-chart {
@@ -53,6 +53,7 @@ h4 {
 #covid-case-counter {
   font-size: 30px;
   font-weight: 300;
+  width: 70px;
   display: inline-block;
 }
 #covid-death-counter {
@@ -371,7 +372,7 @@ h4 {
 
 
 .gutter {
-    background-color: #eee;
+    background-color: #303030;
 
     background-repeat: no-repeat;
     background-position: 50%;

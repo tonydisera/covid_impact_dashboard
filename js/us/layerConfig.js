@@ -107,10 +107,10 @@ var layers = {
     createColorScale: function() {
       createColorScale('covid_deaths_states', 
         [0, maxDeathsState], 
-        d3.interpolateMagma, .3, 
+        d3.interpolateReds, 0, 
         'COVID-19 deaths',
         10, .1,
-        true, true)
+        true, false)
     },
   },
 
@@ -206,10 +206,10 @@ var layers = {
 
       createColorScale('covid_deaths_counties', 
         [0, maxScale], 
-        d3.interpolateMagma, .3, 
+        d3.interpolateReds, 0, 
         'COVID-19 deaths by county',
         10, .1,
-        true, true)
+        true, false)
     },
   },
 
@@ -258,7 +258,7 @@ var layers = {
 
       createColorScale('covid_cases_counties', 
         [0, percentile_95], 
-        d3.interpolateYlOrRd, .3, 
+        d3.interpolateYlOrRd, 0, 
         'COVID-19 cases by county level',
         10, .1,
         false, false)
