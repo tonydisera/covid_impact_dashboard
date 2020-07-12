@@ -11,7 +11,7 @@ h4 {
 }
 #one {
   padding: 5px;
-  background-color: #222323;
+  background-color: #515151;
   color: white;
   padding-left: 20px;
 }
@@ -20,7 +20,7 @@ h4 {
 }
 
 .nav-panel {
-  background-color: #222323;
+  background-color: #515151;
   color: white;
   text-align:center;
   padding-top: 5px;
@@ -28,14 +28,14 @@ h4 {
 }
 
 .top-panel {  
-  background-color: #222323;
+  background-color: #515151;
   color: white;
-  height:160px
+  height:120px
 }
 
 .map.leaflet-container {
   width: 100% !important;
-  height: calc(100% - 160px) !important;
+  height: calc(100% - 120px) !important;
 }
 
 #dot-chart {
@@ -368,6 +368,26 @@ h4 {
   width: 100px;
 }
 
+.info.legend.covid_cases_counties {
+  width: 130px;
+}
+
+.info.legend.covid_cases_counties_markers {
+  width: 140px;
+  background-color: #3a3939;
+  border: thin solid #757575;
+  fill: white;
+  color: white;
+  height: initial;  
+}
+.info.legend.covid_cases_counties_markers svg {
+  height: 155px;
+}
+.info.legend.covid_cases_counties_markers .legendCells circle.swatch  {
+  fill: #ff6666;
+  opacity: .8;
+  stroke: #e63939;
+}
 
 
 

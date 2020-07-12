@@ -256,13 +256,38 @@ var layers = {
       }); 
       var percentile_95 = ss.quantile(data, .95)
 
-      createColorScale('covid_cases_counties', 
+      createColorScale('covid_cases_counties_markers', 
         [0, percentile_95], 
         d3.interpolateYlOrRd, 0, 
         'COVID-19 cases by county level',
         10, .1,
         false, false)
     },
-  },  
+    onLegendAdded: function() {
+
+      let layerKey = "covid_cases_counties_markers"
+
+      d3.select(".info.legend."+layerKey).selectAll(".color-legend-row").remove();
+      var svg = d3.select(".info.legend."+layerKey).append("svg");
+
+      svg.append("g")
+        .attr("class", "legendSize")
+        .attr("transform", "translate(30, 10)");
+
+      var legendSize = d3.legendSize()
+        .scale(layers.covid_cases_counties_markers.scaleQuantile)
+        .shape('circle')
+        .shapeWidth(30)
+        .shapePadding(40)
+        .labelOffset(30)
+        .labelWrap(50)
+        .orient('vertical')
+        .labelFormat(".2s")
+
+      svg.select(".legendSize")
+        .call(legendSize);
+    }
+
+  }  
 }
 

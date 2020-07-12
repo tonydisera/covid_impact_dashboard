@@ -9,7 +9,7 @@
 .waffle-chart .group-container {
   display: flex;
   flex-flow: column-reverse;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 
@@ -23,8 +23,8 @@
 .waffle-chart .box-container {
   display: flex;
   flex-wrap: wrap-reverse;
-  width: 60px;
-  height: 400px;
+  width: 50px;
+  height: 500px;
   justify-content: flex-start;
   align-content: flex-start;
 }
@@ -33,7 +33,7 @@
   display: flex;
   flex-wrap: wrap-reverse;
   margin: 2px;
-  width: 40px;
+  width: 50px;
   height: 200px;
   justify-content: flex-start;
   align-content: flex-start;
@@ -53,9 +53,9 @@
 .waffle-chart .label-container, .count-container {
   display: flex;
   margin: 2px;
-  width: 60px;
+  width: 50px;
   height: 20px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 20px;
   font-weight: 400;
   justify-content: center;
@@ -80,7 +80,7 @@
 
 }
 #state-death-waffle-chart .group-container .box-container {
-  height: 30px;
+  height: 22px;
   flex-flow: column;
   flex-wrap: wrap;
 }

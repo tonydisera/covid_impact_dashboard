@@ -29,7 +29,7 @@ var registerMap = function(map, mapName) {
   attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
   });
 
-  lightMode.addTo(map)
+  darkMode.addTo(map)
 }
 
 var addMinimap = function(mapName, zoomLevel) {
@@ -435,7 +435,14 @@ function createColorScale(layerKey, domain, interpolater, darkenStep,
             + "<span class='color-legend-percentile'>" + legendValues[i] + '</span>'
             + '</div>';
       }
+      if (layer.onLegendAdded) {
+        setTimeout(function() {
+          layer.onLegendAdded()
+        },1000)
+      }
+
       return div;
+
     };
     legend.addTo(theMap);    
   };  

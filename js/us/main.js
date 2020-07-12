@@ -1,23 +1,24 @@
 
 Split(['#one', '#two'], {
     sizes:       [30, 70],
-    minSize:     [400, 500],
+    minSize:     [320, 500],
     expandToMin: true,
     gutterSize:  5
 })
 
 // define rectangle geographical bounds
-var bounds      = [[38.459873-3,    -94.711468-1], [38.459873+3,   -94.711468+1 ]];
-var bounds_mask = [[38.459873-2.6,  -94.711468-1], [38.459873+2.6,  -94.711468+1]];
-var centerPoint = [38.459873, -94.711468];
-var defaultZoomLevel = 4.2;
+var centerPoint = [38.459873-2, -94.711468];
+var bounds      = [[centerPoint[0]-3,   centerPoint[1]-1], [centerPoint[0]+3,   centerPoint[1]+1 ]];
+var bounds_mask = [[centerPoint[0]-2.6, centerPoint[1]-1], [centerPoint[0]+2.6, centerPoint[1]+1]];
+var defaultZoomLevel = 4.0;
 
+var firstTimePlay = true;
 
 var map = L.map('mapid1', {zoomSnap: 0.1, zoomDelta: 0.25, zoomControl: false})
 
 var timeslider = timeslider()
-                  .width(900)
-                  .margin({top:60, right:50, bottom:10, left:50})
+                  .width(750)
+                  .margin({top:40, right:50, bottom:15, left:50})
 timeslider(d3.select("#timeslider"));
 
 registerMap(map, 'map')
@@ -108,6 +109,20 @@ function onStopTimeline() {
 function onTimelineTick(date) {
 
 
+
+  if (firstTimePlay) {
+    setTimeout(function() {
+      resetLayerStyles(date)
+      uncheckAllLayersExcept("map", "Cases by county (circles)")
+      checkLayer("map", "covid_cases_counties_markers")
+      layers["covid_cases_counties_markers"].showLegend(true);
+    },500)
+    firstTimePlay = false;
+  } else {
+    resetLayerStyles(date);
+  }
+} 
+function resetLayerStyles(date) {
   var formatDate = d3.timeFormat("%Y-%m-%d");
   currentDate = formatDate(date);
 
@@ -122,13 +137,7 @@ function onTimelineTick(date) {
   showDeathDotChart(currentDate)
   setMarkerSize(layers.covid_cases_counties_markers)
 
-
-
-  darkMode.addTo(map)
-  uncheckAllLayersExcept("map", "Cases by county (circles)")
-  checkLayer("map", "covid_cases_counties_markers")
-
-} 
+}
 
 function showCaseBubbleChart(date) {
   let selection = d3.select("#bubblechart");
@@ -286,11 +295,17 @@ function showDeathWaffleChart(date) {
       };
       stateDeathData.push(deathObject);
     }
+    /*
     d3.select("#state-death-waffle-header").classed("hide", false)
     d3.select("#state-death-waffle-chart").classed("hide", false)
-    fillWaffleChart(stateDeathData, "#state-death-waffle-chart", false)      
+    fillWaffleChart(stateDeathData, "#state-death-waffle-chart", false)   
+    */   
   }, 6000)
 
+
+}
+
+function onCheckLayer() {
 
 }
 

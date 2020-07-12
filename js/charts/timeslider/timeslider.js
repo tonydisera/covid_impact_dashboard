@@ -1,15 +1,15 @@
 function timeslider() {
 
-  var formatDateIntoYear = d3.timeFormat("%b %d");
+  var formatDateIntoYear = d3.timeFormat("%m-%d");
   var formatDate = d3.timeFormat("%b %d %Y");
   var parseDate = d3.timeParse("%m/%d/%y");
 
   var startDate = new Date("2020-03-13"),
       endDate = new Date(asOfDate);
 
-  var margin = {top:60, right:90, bottom:10, left:90},
-      width  = 960,
-      height = 100;
+  var margin = {top:0, right:50, bottom:10, left:50},
+      width  = 800,
+      height = 20;
 
   var moving = false;
   var currentValue = 0;
@@ -57,13 +57,13 @@ function timeslider() {
 
       slider.insert("g", ".track-overlay")
           .attr("class", "ticks")
-          .attr("transform", "translate(0," + 18 + ")")
+          .attr("transform", "translate(0," + 10 + ")")
         .selectAll("text")
           .data(x.ticks(10))
           .enter()
           .append("text")
           .attr("x", x)
-          .attr("y", 10)
+          .attr("y", 13)
           .attr("text-anchor", "middle")
           .text(function(d) { return formatDateIntoYear(d); });
 
@@ -90,7 +90,7 @@ function timeslider() {
             onStopTimeline();
           } else {
             moving = true;
-            timer = setInterval(step, 125);
+            timer = setInterval(step, 250);
             button.text("Pause");
           }
         })

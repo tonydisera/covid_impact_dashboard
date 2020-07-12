@@ -3,7 +3,7 @@
   color: white;
   display: flex;
   flex-flow: column;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 #timeslider .timeslider-chart {
@@ -12,28 +12,27 @@
 }
 
 #timeslider .label {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 #play-button {
-  background: #f08080;
+  background: #ffffff;
   padding-right: 26px;
   border-radius: 3px;
   border: none;
-  color: white;
+  color: #494949;
   margin: 0;
   padding: 0 12px;
   width: 80px;
   cursor: pointer;
-  height: 50px;
+  height: 30px;
   margin-left: 20px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
+  margin-top: 5px;
 }
 
-#play-button:hover {
-  background-color: #696969;
-}    
+ 
 
 .ticks {
   font-size: 10px;
@@ -60,7 +59,7 @@
   pointer-events: stroke;
   stroke-width: 50px;
   stroke: transparent;
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .handle {

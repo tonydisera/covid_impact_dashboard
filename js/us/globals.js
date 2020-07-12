@@ -1,8 +1,8 @@
 var stateMap = {}
 var countyMap = {}
 var groupedOverlays = {}
-var asOfDate    = "2020-07-01"
-var currentDate = "2020-07-01"
+var asOfDate    = "2020-07-10"
+var currentDate = "2020-07-10"
 var maxCasesState = 0;
 var maxCasesCounty= 0;
 var maxDeathsState = 0;
@@ -27,8 +27,9 @@ var deathPoints = null;
 
 var newYorkCountyFips = "36061";
 
-var deathColor       = "#6292bf";
-var otherDeathColor  = "#8dd2f2";
+//var deathColor       = "#9dabd3";
+var deathColor = "#dec57b";
+var otherDeathColor  = "#c1c7d7";
 
 let deathFactor = 200
 let covidDeaths = {
