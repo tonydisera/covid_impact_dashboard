@@ -12,32 +12,22 @@ var registerMap = function(map, mapName) {
   let mapObject = mapLayers[mapName]
   mapObject.map = map;
 
-  lightMode = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  });
-
-  var CartoDB_DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  subdomains: 'abcd',
-  maxZoom: 19
-  });
-
   darkMode = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
   maxZoom: 20,
   attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
   });
 
+  
   darkMode.addTo(map)
+
 }
 
-var addMinimap = function(mapName, zoomLevel) {
+var addMinimap = function(mapName, zoomLevel, centerFixed) {
   let mapObject = mapLayers[mapName]
   var osm2 = L.tileLayer(
     mapObject.minimapBaseTileUrl,
     mapObject.minimapBaseTileOptions);
-  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, zoomLevelFixed: zoomLevel }).addTo(mapObject.map);   
+  var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true, zoomLevelFixed: zoomLevel, centerFixed: centerFixed }).addTo(mapObject.map);   
 }
 
 var activateLayers = function(mapName, layerNames, activate=true) {

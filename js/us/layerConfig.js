@@ -74,7 +74,7 @@ var layers = {
         d3.interpolateYlOrRd, .3, 
         'COVID-19 cases',
         10, .1,
-        false, false)
+        true, false)
     },
   },
   'covid_deaths_states': {
@@ -261,7 +261,7 @@ var layers = {
         d3.interpolateYlOrRd, 0, 
         'COVID-19 cases by county level',
         10, .1,
-        false, false)
+        true, false)
     },
     onLegendAdded: function() {
 

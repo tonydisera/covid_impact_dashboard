@@ -90,7 +90,7 @@ function timeslider() {
             onStopTimeline();
           } else {
             moving = true;
-            timer = setInterval(step, 250);
+            timer = setInterval(step, 120);
             button.text("Pause");
           }
         })
