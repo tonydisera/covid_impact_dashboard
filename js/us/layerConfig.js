@@ -160,7 +160,7 @@ var layers = {
       createColorScale('covid_cases_counties', 
         [0, percentile_95], 
         d3.interpolateYlOrRd, .3, 
-        'COVID-19 cases by county level',
+        'COVID-19 cumulative cases (county)',
         10, .1,
         false, false)
     },

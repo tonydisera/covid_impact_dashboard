@@ -28,7 +28,7 @@ var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo
 
 var timeslider = timeslider()
                   .width(750)
-                  .margin({top:25, right:50, bottom:15, left:50})
+                  .margin({top:28, right:50, bottom:15, left:50})
 timeslider(d3.select("#timeslider"));
 
 
@@ -84,6 +84,7 @@ promiseParseCovidStateData(layers.covid_cases_states)
 
   d3.select(".case-stats").classed("hide", false)
   d3.select(".death-stats").classed("hide", false)
+
   showCaseCount(currentDate);
   
   getCountsByState(currentDate)
@@ -158,6 +159,7 @@ function showCaseBubbleChart(date) {
   }, 0)
   d3.select("#covid-case-counter").text(d3.format(".3s")(totalCases))
 
+
   selection.datum(bubbleData)
   bubbleChartCases(selection)
 }
@@ -223,6 +225,7 @@ function getRankedStatesByCases() {
 }
 
 function showCaseCount(date) {
+  d3.select("#covid-case-counter-header").classed("hide", false)
   let totalCases = Object.keys(stateMap).map(function (key) { 
     return stateMap[key].dates[date] ? +stateMap[key].dates[date].cases : 0; 
   })    

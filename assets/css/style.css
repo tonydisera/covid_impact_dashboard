@@ -69,16 +69,25 @@ h4 {
   padding-left: 4px;
 }
 #covid-case-counter {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 300;
   width: 110px;
   display: inline-block;
+  
 }
 #covid-death-counter {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 300;
   display: inline-block;
   width: 180px;
+}
+#covid-death-counter-header {
+  color: #dec57b;
+
+}
+#covid-case-counter-header {
+  color: #dc5e5d;
+
 }
 
 
