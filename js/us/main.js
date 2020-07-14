@@ -5,6 +5,10 @@ Split(['#one', '#two'], {
     expandToMin: true,
     gutterSize:  5
 })
+
+
+
+
 var map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
 registerMap(map, 'map')
 
@@ -24,88 +28,76 @@ var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo
 
 var timeslider = timeslider()
                   .width(750)
-                  .margin({top:40, right:50, bottom:15, left:50})
+                  .margin({top:25, right:50, bottom:15, left:50})
 timeslider(d3.select("#timeslider"));
 
-$( document ).ready(function() {
-    console.log( "document loaded" );
-  });
- 
-$( window ).on( "load", function() {
-    console.log( "window loaded" );
-});
 
-$( document ).ready(function() {
+promiseParseCovidStateData(layers.covid_cases_states)
+.then(function() {
+  return promiseParseCountyInfoData();
+})
+.then(function() {
+  return promiseParseCovidCountyData(layers.covid_cases_counties)
+})
+.then(function() {
+  createColorScales('map');
+  return promiseAddStateLayer(map, layers.states);  
+})
+.then(function() {
+  return promiseAddCountyLayer(map, layers.counties);
+})
+.then(function() {
+  return promiseAddStateLayer(map, layers.covid_cases_states);  
+})
+.then(function() {
+  return promiseAddStateLayer(map, layers.covid_deaths_states);  
+})
+.then(function() {
+  return promiseAddCountyLayer(map, layers.covid_cases_counties);  
+})
+.then(function() {
+  //return Promise.resolve();
+  return promiseAddMarkers(layers.covid_cases_counties_markers);  
+})
+.then(function() {
+  return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
+})
+.then(function() {
+  addMapLegends('map');
 
+  //expandLayerControl('map')
+
+  addInfoPanel('map')
+
+  //uncheckLayer('map', 'covid_cases_counts')
+
+  bubbleChartCases = bubbleChart();
+  bubbleChartCases.fillColor(function(d,i) {
+    //return "white";
+    return layers.covid_cases_states.getColorForValue(d.value)
+  })
+
+  dotChartDeaths = dotChart();
+  dotChartDeaths.fillColor(function(d,i) {
+    return deathColor;
+  })
+
+  d3.select(".case-stats").classed("hide", false)
+  d3.select(".death-stats").classed("hide", false)
+  showCaseCount(currentDate);
   
-
-  promiseParseCovidStateData(layers.covid_cases_states)
-  .then(function() {
-    return promiseParseCountyInfoData();
-  })
-  .then(function() {
-    return promiseParseCovidCountyData(layers.covid_cases_counties)
-  })
-  .then(function() {
-    createColorScales('map');
-    return promiseAddStateLayer(map, layers.states);  
-  })
-  .then(function() {
-    return promiseAddCountyLayer(map, layers.counties);
-  })
-  .then(function() {
-    return promiseAddStateLayer(map, layers.covid_cases_states);  
-  })
-  .then(function() {
-    return promiseAddStateLayer(map, layers.covid_deaths_states);  
-  })
-  .then(function() {
-    return promiseAddCountyLayer(map, layers.covid_cases_counties);  
-  })
-  .then(function() {
-    //return Promise.resolve();
-    return promiseAddMarkers(layers.covid_cases_counties_markers);  
-  })
-  .then(function() {
-    return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
-  })
-  .then(function() {
-    addMapLegends('map');
-
-    //expandLayerControl('map')
-
-    addInfoPanel('map')
-
-    //uncheckLayer('map', 'covid_cases_counts')
-
-    bubbleChartCases = bubbleChart();
-    bubbleChartCases.fillColor(function(d,i) {
-      //return "white";
-      return layers.covid_cases_states.getColorForValue(d.value)
-    })
-
-    dotChartDeaths = dotChart();
-    dotChartDeaths.fillColor(function(d,i) {
-      return deathColor;
-    })
-
-    d3.select(".case-stats").classed("hide", false)
-    d3.select(".death-stats").classed("hide", false)
-    showCaseCount(currentDate);
-    
-    getCountsByState(currentDate)
-   
-
-  })
-
+  getCountsByState(currentDate)
+ 
 
 })
+
+
 
 function onStopTimeline() {
   setTimeout(function(d) {
     showCaseCount(asOfDate);
     showDeathWaffleChart(asOfDate);    
-  }, 1500)
+  }, 100)
 }
 
 function onTimelineTick(date) {
@@ -127,6 +119,10 @@ function onTimelineTick(date) {
 function resetLayerStyles(date) {
   var formatDate = d3.timeFormat("%Y-%m-%d");
   currentDate = formatDate(date);
+
+
+  theMonth = d3.timeFormat("%b")(date);
+  d3.select("#month_display").text(theMonth)
 
 
   //restyleStateLayer(layers.covid_cases_states)

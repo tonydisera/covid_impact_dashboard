@@ -1,13 +1,15 @@
-body {
+body, html {
   font-family: 'Raleway', sans-serif !important;
+ 
 }
+
+
+
 h4 {
   font-weight: 400 !important;
 }
 
-.map-wrapper {
-  height: calc(100%);
-}
+
  
 .leaflet-control-zoom.leaflet-bar.leaflet-control {
   display: none;
@@ -45,13 +47,13 @@ h4 {
 .top-panel {  
   background-color: #515151;
   color: white;
-  height:130px
+  height: 130px
 }
 
 .map.leaflet-container {
   width: 100% !important;
   height: calc(100% - 130px) !important;
-  height: 100vh;
+
 }
 
 #dot-chart {
@@ -67,16 +69,16 @@ h4 {
   padding-left: 4px;
 }
 #covid-case-counter {
-  font-size: 30px;
+  font-size: 50px;
   font-weight: 300;
-  width: 70px;
+  width: 110px;
   display: inline-block;
 }
 #covid-death-counter {
-  font-size: 30px;
+  font-size: 50px;
   font-weight: 300;
   display: inline-block;
-  width: 110px;
+  width: 180px;
 }
 
 

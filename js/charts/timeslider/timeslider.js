@@ -72,12 +72,13 @@ function timeslider() {
           .attr("r", 9)
           .attr("cx", x.range()[1])
 
+
       var label = slider.append("text")  
           .attr("class", "label")
           .attr("text-anchor", "middle")
           .text(formatDate(endDate))
           .attr("x", x.range()[1])
-          .attr("transform", "translate(0," + (-25) + ")")
+          .attr("transform", "translate(0," + (-15) + ")")
 
       playButton
           .on("click", function() {
@@ -117,9 +118,11 @@ function timeslider() {
       function update(h) {
         // update position and text of label according to slider scale
         handle.attr("cx", x(h));
+        
         label
           .attr("x", x(h))
           .text(formatDate(h));
+        
 
         onTimelineTick(h)
       }

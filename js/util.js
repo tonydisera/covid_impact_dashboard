@@ -94,3 +94,67 @@ capitalizeFirstLetter = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
+function detectChrome() {
+  var isChromium = window.chrome,
+    winNav = window.navigator,
+    vendorName = winNav.vendor,
+    isOpera = winNav.userAgent.indexOf("OPR") > -1,
+    isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+    isIOSChrome = winNav.userAgent.match("CriOS");
+
+  var isChrome = /Chrome/.test(window.navigator.userAgent) && /Google Inc/.test(window.navigator.vendor);  
+
+  if(isChrome) {
+    return true;
+  } else if (isIOSChrome) {
+    return true;
+  } else if (
+    isChromium !== null &&
+    typeof isChromium !== "undefined" &&
+    vendorName === "Google Inc." &&
+    isOpera === false &&
+    isIEedge === false
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+
+/**
+ * detect IE
+ * returns version of IE or false, if browser is not Internet Explorer
+ */
+function detectIE() {
+    var ua = window.navigator.userAgent;
+
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+
+    var edge = ua.indexOf('Edge/');
+    if (edge > 0) {
+       // IE 12 => return version number
+       return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+    }
+
+    // other browser
+    return false;
+}
+
+function detectSafari() {
+  return (navigator.userAgent.indexOf('Safari') != -1 && !detectChrome());
+}
+
