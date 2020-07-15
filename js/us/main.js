@@ -7,91 +7,117 @@ Split(['#one', '#two'], {
 })
 
 
+$( document ).ready(function() {
+  if (inIframe()) {
+
+    setTimeout(function() {
+      init();
+    }, 500);
+
+  } else {    
+    init();
+  }
+});
+
+function inIframe () {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
 
 
-var map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
-registerMap(map, 'map')
+function init() {
 
-activateLayers('map', [
+  map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
+  registerMap(map, 'map')
 
-  'covid_cases_counties',
-  'covid_cases_counties_markers',  
+  activateLayers('map', [
 
-  ], true)
+    'covid_cases_counties',
+    'covid_cases_counties_markers',  
 
-registerMapOverlaysGrouped('map', 'covid_cases_counties');
+    ], true)
 
-map.setView(centerPoint, defaultZoomLevel);
+  registerMapOverlaysGrouped('map', 'covid_cases_counties');
 
-var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo(map);
+  map.setView(centerPoint, defaultZoomLevel);
 
-
-var timeslider = timeslider()
-                  .width(750)
-                  .margin({top:28, right:50, bottom:15, left:50})
-timeslider(d3.select("#timeslider"));
+  var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo(map);
 
 
-promiseParseCovidStateData(layers.covid_cases_states)
-.then(function() {
-  return promiseParseCountyInfoData();
-})
-.then(function() {
-  return promiseParseCovidCountyData(layers.covid_cases_counties)
-})
-.then(function() {
-  createColorScales('map');
-  return promiseAddStateLayer(map, layers.states);  
-})
-.then(function() {
-  return promiseAddCountyLayer(map, layers.counties);
-})
-.then(function() {
-  return promiseAddStateLayer(map, layers.covid_cases_states);  
-})
-.then(function() {
-  return promiseAddStateLayer(map, layers.covid_deaths_states);  
-})
-.then(function() {
-  return promiseAddCountyLayer(map, layers.covid_cases_counties);  
-})
-.then(function() {
-  //return Promise.resolve();
-  return promiseAddMarkers(layers.covid_cases_counties_markers);  
-})
-.then(function() {
-  return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
-})
-.then(function() {
-  addMapLegends('map');
+  timeslider = timeslider()
+                    .width(750)
+                    .margin({top:28, right:50, bottom:15, left:50})
+  timeslider(d3.select("#timeslider"));
 
-  //expandLayerControl('map')
 
-  addInfoPanel('map')
+  promiseParseCovidStateData(layers.covid_cases_states)
+  .then(function() {
+    return promiseParseCountyInfoData();
+  })
+  .then(function() {
+    return promiseParseCovidCountyData(layers.covid_cases_counties)
+  })
+  .then(function() {
+    createColorScales('map');
+    return promiseAddStateLayer(map, layers.states);  
+  })
+  .then(function() {
+    return promiseAddCountyLayer(map, layers.counties);
+  })
+  .then(function() {
+    return promiseAddStateLayer(map, layers.covid_cases_states);  
+  })
+  .then(function() {
+    return promiseAddStateLayer(map, layers.covid_deaths_states);  
+  })
+  .then(function() {
+    return promiseAddCountyLayer(map, layers.covid_cases_counties);  
+  })
+  .then(function() {
+    //return Promise.resolve();
+    return promiseAddMarkers(layers.covid_cases_counties_markers);  
+  })
+  .then(function() {
+    return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
+  })
+  .then(function() {
+    addMapLegends('map');
 
-  //uncheckLayer('map', 'covid_cases_counts')
+    //expandLayerControl('map')
 
-  bubbleChartCases = bubbleChart();
-  bubbleChartCases.fillColor(function(d,i) {
-    //return "white";
-    return layers.covid_cases_states.getColorForValue(d.value)
+    addInfoPanel('map')
+
+    //uncheckLayer('map', 'covid_cases_counts')
+
+    bubbleChartCases = bubbleChart();
+    bubbleChartCases.fillColor(function(d,i) {
+      //return "white";
+      return layers.covid_cases_states.getColorForValue(d.value)
+    })
+
+    dotChartDeaths = dotChart();
+    dotChartDeaths.fillColor(function(d,i) {
+      return deathColor;
+    })
+
+    d3.select(".case-stats").classed("hide", false)
+    d3.select(".death-stats").classed("hide", false)
+
+    showCaseCount(currentDate);
+    
+    getCountsByState(currentDate)
+   
+
   })
 
-  dotChartDeaths = dotChart();
-  dotChartDeaths.fillColor(function(d,i) {
-    return deathColor;
-  })
 
-  d3.select(".case-stats").classed("hide", false)
-  d3.select(".death-stats").classed("hide", false)
+}
 
-  showCaseCount(currentDate);
+
   
-  getCountsByState(currentDate)
- 
-
-})
-
 
 
 function onStopTimeline() {
