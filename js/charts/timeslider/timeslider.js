@@ -1,25 +1,62 @@
 function timeslider() {
 
-  var formatDateIntoYear = d3.timeFormat("%m-%d");
-  var formatDate = d3.timeFormat("%b %d %Y");
+  var formatDateIntoYear = d3.timeFormat("%b %d %Y");
+  var formatDate = d3.timeFormat("%m-%d");
+  var formatClassDate = d3.timeFormat("%b-%d");
   var parseDate = d3.timeParse("%m/%d/%y");
+  var formatYMD = d3.timeFormat("%Y-%m-%d")
 
-  var startDate = new Date("2020-03-13"),
+  var startDate = new Date("2020-03-16"),
       endDate = new Date(asOfDate);
 
-  var margin = {top:0, right:50, bottom:10, left:50},
-      width  = 800,
-      height = 20;
+
+  var countField = 'counts';
+
+  let dates = [];
+
+  var margin = {top:0, right:100, bottom:10, left:100},
+      width  = 900,
+      height = 70;
 
   var moving = false;
   var currentValue = 0;
+  var currentDate = new Date(startDate);
   var targetValue = null;
+  var dateTicks = [];
+  var countRecords = [];
+
+
+  var svg = null;
+
+  let timer = null;
+
+  var selection = null;
+
 
   ////////// slider //////////
-  function chart(selection) {
-    selection.each(function(data) {
+  function chart(theSelection) {
+    selection = theSelection
+    theSelection.each(function(data) {
 
-      var svg = selection.select(".timeslider-chart")
+
+
+      dateTicks = [];
+      countRecords = [];
+      let lastDate = startDate;
+      dateTicks.push(startDate);
+      let dateKey = formatYMD(lastDate);
+      countRecords.push({ date: lastDate })
+      while (lastDate < endDate) {
+        lastDate = d3.timeDay.offset(lastDate, 7); 
+        if (lastDate <= endDate) {
+        } else {
+          lastDate = d3.timeDay.offset(endDate, 1); 
+        }
+        dateTicks.push(lastDate);
+        dateKey = formatYMD(lastDate);
+        countRecords.push({date: lastDate })          
+      }
+      svg = selection.select(".timeslider-chart")
           .append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom);  
@@ -29,6 +66,7 @@ function timeslider() {
       let innerWidth = width - margin.left - margin.right;
       let innerHeight = height - margin.top - margin.bottom;
       targetValue = innerWidth;
+
           
       var x = d3.scaleTime()
           .domain([startDate, endDate])
@@ -49,51 +87,71 @@ function timeslider() {
           .attr("class", "track-overlay")
           .call(d3.drag()
               .on("start.interrupt", function() { slider.interrupt(); })
-              .on("start drag", function() {
+              .on("start", function() {
+                update(x.invert(d3.event.x))
+              })
+              .on("drag", function() {
+                update(x.invert(d3.event.x))
+              })
+              .on("end", function() {
                 currentValue = d3.event.x;
-                update(x.invert(currentValue)); 
+                let theDate = x.invert(currentValue);
+                let matchedDate = findClosestDate(theDate)
+                if (matchedDate) {
+                  currentDate = matchedDate
+                  currentValue = x(currentDate)
+                  update(matchedDate); 
+                }
               })
           );
 
+
+
       slider.insert("g", ".track-overlay")
           .attr("class", "ticks")
-          .attr("transform", "translate(0," + 10 + ")")
+          .attr("transform", "translate(0," + 18 + ")")
         .selectAll("text")
-          .data(x.ticks(10))
+          .data(dateTicks)
           .enter()
           .append("text")
           .attr("x", x)
-          .attr("y", 13)
-          .attr("text-anchor", "middle")
-          .text(function(d) { return formatDateIntoYear(d); });
+          .attr("y", 10)
+          .attr("text-anchor", function(d,i) {
+            if ( i < dateTicks.length - 1 ) {
+              return "middle";
+            } else {
+              return "start";
+            }
+          })
+          .text(function(d) { return formatDate(d); })
+          .attr("class", function(d) {
+            return  formatClassDate(d)
+          })
+
 
       var handle = slider.insert("circle", ".track-overlay")
           .attr("class", "handle")
           .attr("r", 9)
-          .attr("cx", x.range()[1])
+          .attr("cx", x.range()[0])
 
-
-      var label = slider.append("text")  
-          .attr("class", "label")
-          .attr("text-anchor", "middle")
-          .text(formatDate(endDate))
-          .attr("x", x.range()[1])
-          .attr("transform", "translate(0," + (-15) + ")")
 
       playButton
           .on("click", function() {
-          var button = d3.select(this);
-          if (button.text() == "Pause") {
-            moving = false;
-            clearInterval(timer);
-            // timer = 0;
-            button.text("Play");
-            onStopTimeline();
-          } else {
-            moving = true;
-            timer = setInterval(step, 120);
-            button.text("Pause");
-          }
+            var button = d3.select(this);
+            var buttonText = selection.select("#play-button").text();
+
+            if (buttonText == "Pause") {
+              moving = false;
+              clearInterval(timer);
+              // timer = 0;
+              button.text("Play")
+              onStopTimeline();
+            } else {
+              moving = true;
+
+              firstStep();
+              button.text("Pause")
+            }
         })
 
       function prepare(d) {
@@ -101,32 +159,85 @@ function timeslider() {
         d.date = parseDate(d.date);
         return d;
       }
+
+      function firstStep() {
+        step();
+        timer = setInterval(step, 150)
+      }
         
       function step() {
-        update(x.invert(currentValue));
-        currentValue = currentValue + (targetValue/151);
-        if (currentValue > targetValue) {
+        if (currentValue == targetValue) {
+          update(x.invert(currentValue));
           moving = false;
-          currentValue = 0;
           clearInterval(timer);
-          // timer = 0;
-          playButton.text("Play");
+          let button = selection.select("#play-button");
+          button.text("Play")
+
+          svg.selectAll(".ticks text").classed("current", false)
+          svg.selectAll(".ticks text." + formatClassDate(d3.timeDay.offset(endDate, 1))).classed("current", true)          
+
+
           onStopTimeline();
+          currentValue = 0;
+          currentDate = startDate;
+        } else {
+
+
+          update(x.invert(currentValue));
+
+          let formatter = d3.timeFormat("%Y-%m-%d")
+          currentDate = d3.timeDay.offset(currentDate, 1); 
+          currentValue = x(currentDate)
         }
+
+
+
       }
+
 
       function update(h) {
         // update position and text of label according to slider scale
         handle.attr("cx", x(h));
-        
-        label
-          .attr("x", x(h))
-          .text(formatDate(h));
-        
+        //label
+        //  .attr("x", x(h))
+        //  .text(formatDate(h));
+
+        if (!svg.selectAll(".ticks text." + formatClassDate(h)).empty()) {
+          svg.selectAll(".ticks text").classed("current", false)
+          svg.selectAll(".ticks text." + formatClassDate(h)).classed("current", true)          
+        }
+
 
         onTimelineTick(h)
       }
 
+
+      function findClosestDate(theDate) {
+        let matchedDate = null;
+        if (currentDate <= theDate) {
+          dateTicks.forEach(function(aDate) {
+            if (matchedDate == null) {
+              if (formatDateIntoYear(aDate) == formatDateIntoYear(theDate)) {
+                matchedDate = aDate;
+              } else if (currentDate < theDate) {
+                if (aDate > theDate) {
+                  matchedDate = aDate;
+                }
+              }                   
+            }
+          })
+        } else {
+          let reversedDateTicks = dateTicks.slice().reverse();
+          reversedDateTicks.forEach(function(aDate) {
+            if (matchedDate == null) {
+              if (theDate > aDate) {
+                matchedDate = aDate;
+              }
+            }
+          })
+        }
+        return matchedDate;
+      }
 
     })
   }
@@ -147,6 +258,16 @@ function timeslider() {
     margin = _;
     return chart;
   };  
+  chart.countField = function(_) {
+    if (!arguments.length) return countField;
+    countField = _;
+    return chart;
+  };
+
+  chart.reset = function() {
+    currentValue = 0;
+    currentDate = startDate;
+  }
 
   return chart;
 }

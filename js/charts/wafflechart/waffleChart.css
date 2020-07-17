@@ -24,7 +24,7 @@
   display: flex;
   flex-wrap: wrap-reverse;
   width: 50px;
-  height: 500px;
+  height: 530px;
   justify-content: flex-start;
   align-content: flex-start;
 }
@@ -59,6 +59,9 @@
   line-height: 20px;
   font-weight: 400;
   justify-content: center;
+}
+.waffle-chart .label-container {
+  line-height: 16px;
 }
 
 .waffle-chart .count-container {

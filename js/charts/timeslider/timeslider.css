@@ -38,6 +38,11 @@
   font-size: 10px;
 }
 
+.ticks text.current {
+  font-size: 13px;
+  font-weight: bold;
+}
+
 .track,
 .track-inset,
 .track-overlay {

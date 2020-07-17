@@ -48,8 +48,8 @@ function init() {
 
 
   timeslider = timeslider()
-                    .width(750)
-                    .margin({top:28, right:50, bottom:15, left:50})
+                    .width(720)
+                    .margin({top:28, right:10, bottom:15, left:15})
   timeslider(d3.select("#timeslider"));
 
 
