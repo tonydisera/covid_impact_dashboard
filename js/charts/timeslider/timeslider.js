@@ -48,7 +48,8 @@ function timeslider() {
       countRecords.push({ date: lastDate })
       while (lastDate < endDate) {
         lastDate = d3.timeDay.offset(lastDate, 7); 
-        if (lastDate <= endDate) {
+        if (lastDate < endDate) {
+        } else if (lastDate == endDate) {
         } else {
           lastDate = d3.timeDay.offset(endDate, 1); 
         }
@@ -120,7 +121,8 @@ function timeslider() {
             if ( i < dateTicks.length - 1 ) {
               return "middle";
             } else {
-              return "start";
+              //return "start";
+              return "middle"
             }
           })
           .text(function(d) { return formatDate(d); })

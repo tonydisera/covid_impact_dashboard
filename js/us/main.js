@@ -49,7 +49,7 @@ function init() {
 
   timeslider = timeslider()
                     .width(720)
-                    .margin({top:28, right:10, bottom:15, left:15})
+                    .margin({top:18, right:10, bottom:15, left:18})
   timeslider(d3.select("#timeslider"));
 
 
@@ -107,6 +107,10 @@ function init() {
     d3.select(".death-stats").classed("hide", false)
 
     showCaseCount(currentDate);
+
+    theMonth = d3.timeFormat("%B %d")(new Date(currentDate));
+    d3.select("#month_display").text(theMonth);
+
     
     getCountsByState(currentDate)
    
@@ -123,6 +127,7 @@ function init() {
 function onStopTimeline() {
   setTimeout(function(d) {
     showCaseCount(asOfDate);
+    
     showDeathWaffleChart(asOfDate);    
   }, 100)
 }
@@ -148,7 +153,7 @@ function resetLayerStyles(date) {
   currentDate = formatDate(date);
 
 
-  theMonth = d3.timeFormat("%b")(date);
+  theMonth = d3.timeFormat("%B")(date);
   d3.select("#month_display").text(theMonth)
 
 

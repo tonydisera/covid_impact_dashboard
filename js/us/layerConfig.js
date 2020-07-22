@@ -272,16 +272,16 @@ var layers = {
 
       svg.append("g")
         .attr("class", "legendSize")
-        .attr("transform", "translate(30, 10)");
+        .attr("transform", "translate(10, 34)");
 
       var legendSize = d3.legendSize()
-        .scale(layers.covid_cases_counties_markers.scaleQuantile)
+        .scale(layers.covid_cases_counties_markers.scale)
         .shape('circle')
-        .shapeWidth(30)
-        .shapePadding(40)
-        .labelOffset(30)
+        .shapePadding(80)
+        .shapeWidth(80)
+        .labelOffset(10)
         .labelWrap(50)
-        .orient('vertical')
+        .orient('horizontal')
         .labelFormat(".2s")
 
       svg.select(".legendSize")

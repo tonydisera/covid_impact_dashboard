@@ -173,10 +173,13 @@ var promiseAddMarkers = function(layer) {
       return layer.getValue(d)
     })
     if (layer.scale == null) {
-      layer.scale = d3.scaleLinear().domain([1, maxValue]).range([2,25])
+      layer.scale = d3.scaleSqrt()
+                        .domain([1, maxValue])
+                        .range([1, 32]);
+      //layer.scale = d3.scaleLinear().domain([1, maxValue]).range([1,30])
       layer.scaleQuantile = d3.scaleQuantize()
                               .domain([1, maxValue])
-                              .range([2,5,10,25])
+                              .range([1,8,17,35])
     }
 
     function getRadius(row) {

@@ -1,7 +1,7 @@
 var map = null;
 var timeslider = null;
 
-var centerPoint = [38.459873-2, -94.711468];
+var centerPoint = [38.459873-5, -94.711468];
 var bounds      = [[centerPoint[0]-3,   centerPoint[1]-1], [centerPoint[0]+3,   centerPoint[1]+1 ]];
 var bounds_mask = [[centerPoint[0]-2.6, centerPoint[1]-1], [centerPoint[0]+2.6, centerPoint[1]+1]];
 var defaultZoomLevel = 4.0;
@@ -12,8 +12,8 @@ var firstTimePlay = true;
 var stateMap = {}
 var countyMap = {}
 var groupedOverlays = {}
-var asOfDate    = "2020-07-16"
-var currentDate = "2020-07-16"
+var asOfDate    = "2020-07-20"
+var currentDate = "2020-07-20"
 var maxCasesState = 0;
 var maxCasesCounty= 0;
 var maxDeathsState = 0;

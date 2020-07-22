@@ -1,5 +1,5 @@
 body, html {
-  font-family: 'Raleway', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
  
 }
 
@@ -55,11 +55,21 @@ h4 {
   height: calc(100% - 130px) !important;
 
 }
+.map-wrapper {
+  height: 100% !important
+}
+
 
 #dot-chart {
   margin-top:10px;
   display: flex;
   justify-content: space-around;
+}
+
+#month_display {
+  width: 200px;
+  font-size: 40px;
+  font-weight: 300;
 }
 
 .covid-counter-header {
@@ -71,7 +81,7 @@ h4 {
 #covid-case-counter {
   font-size: 40px;
   font-weight: 300;
-  width: 110px;
+  width: 100px;
   display: inline-block;
   
 }
@@ -79,7 +89,7 @@ h4 {
   font-size: 40px;
   font-weight: 300;
   display: inline-block;
-  width: 180px;
+  width: 160px;
 }
 #covid-death-counter-header {
   color: #dec57b;
@@ -94,10 +104,10 @@ h4 {
 
 
 #popup {
-  font-family: 'Raleway', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 .chart text {
-  font-family: 'Raleway', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 .chart .data-date {
   font-size: 12px;
@@ -108,7 +118,7 @@ h4 {
 
 
 .leaflet-container {
-  font-family: 'Raleway', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .leaflet-left .leaflet-control {
@@ -130,9 +140,7 @@ h4 {
   height: 100%;
 }
 
-.map-wrapper {
-  height: calc(100% - 0px) !important;
-}
+
 
 .boundary-polygon {
   fill: transparent !important;
@@ -404,15 +412,18 @@ h4 {
 }
 
 .info.legend.covid_cases_counties_markers {
-  width: 140px;
+  width: 375px;
   background-color: #3a3939;
   border: thin solid #757575;
   fill: white;
   color: white;
-  height: initial;  
+  height: 100px;
+  margin-bottom: 0px !important;  
+  margin-right: 0px !important;
 }
 .info.legend.covid_cases_counties_markers svg {
-  height: 155px;
+  width: 375px;
+  height: 80px;
 }
 .info.legend.covid_cases_counties_markers .legendCells circle.swatch  {
   fill: #ff6666;
