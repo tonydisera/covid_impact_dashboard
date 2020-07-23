@@ -30,8 +30,6 @@ var layers = {
     leafletLayer: null,
     popupFields: {
       'county': 'County',
-      'countyFips': 'County fips',
-      'stateFips': 'State fips'    
     }
   },
 
@@ -130,8 +128,8 @@ var layers = {
     leafletLayer: null,
     popupFields: {
       'county': 'County',
-      'countyFips': 'County fips',
-      'stateFips': 'State fips'    
+      'cases': 'Cumulative cases',
+      'deaths': 'Deaths'    
     },
     countField: 'cases',
     dataMap: countyMap,
@@ -177,8 +175,9 @@ var layers = {
     leafletLayer: null,
     popupFields: {
       'county': 'County',
-      'countyFips': 'County fips',
-      'stateFips': 'State fips'    
+      'state': 'State',
+      'cases': 'Cumulative cases',
+      'deaths': 'Deaths'    
     },
     countField: 'deaths',
     dataMap: countyMap,

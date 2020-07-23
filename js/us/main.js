@@ -108,7 +108,7 @@ function init() {
 
     showCaseCount(currentDate);
 
-    theMonth = d3.timeFormat("%B %d")(new Date(currentDate));
+    let theMonth = d3.timeFormat("%B %d")(new Date(currentDate + " 0:00"));
     d3.select("#month_display").text(theMonth);
 
     
@@ -124,9 +124,13 @@ function init() {
   
 
 
-function onStopTimeline() {
+function onStopTimeline(date) {
+  resetLayerStyles(date)
+  showCaseCount(asOfDate);
+
+  theMonth = d3.timeFormat("%B %d")(new Date(currentDate + " 0:00"));
+  d3.select("#month_display").text(theMonth);
   setTimeout(function(d) {
-    showCaseCount(asOfDate);
     
     showDeathWaffleChart(asOfDate);    
   }, 100)
@@ -153,7 +157,7 @@ function resetLayerStyles(date) {
   currentDate = formatDate(date);
 
 
-  theMonth = d3.timeFormat("%B")(date);
+  let theMonth = d3.timeFormat("%B")(date);
   d3.select("#month_display").text(theMonth)
 
 

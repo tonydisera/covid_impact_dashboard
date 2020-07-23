@@ -55,7 +55,7 @@ function timeslider() {
         }
         dateTicks.push(lastDate);
         dateKey = formatYMD(lastDate);
-        countRecords.push({date: lastDate })          
+        countRecords.push({date: lastDate  })          
       }
       svg = selection.select(".timeslider-chart")
           .append("svg")
@@ -70,7 +70,7 @@ function timeslider() {
 
           
       var x = d3.scaleTime()
-          .domain([startDate, endDate])
+          .domain([startDate, dateTicks[dateTicks.length-1]])
           .range([0, targetValue])
           .clamp(true);
 
@@ -118,14 +118,21 @@ function timeslider() {
           .attr("x", x)
           .attr("y", 10)
           .attr("text-anchor", function(d,i) {
+            return "middle"
+          })
+          .text(function(d,i) { 
             if ( i < dateTicks.length - 1 ) {
-              return "middle";
+              return formatDate(d); 
             } else {
-              //return "start";
-              return "middle"
+              var time_diff = dateTicks[i].getTime() - dateTicks[i-1].getTime();
+              var day_diff = time_diff / (1000 * 3600 * 24);
+              if (day_diff > 3) {
+                return formatDate(d)
+              } else{
+                return "";
+              }
             }
           })
-          .text(function(d) { return formatDate(d); })
           .attr("class", function(d) {
             return  formatClassDate(d)
           })
@@ -178,8 +185,7 @@ function timeslider() {
           svg.selectAll(".ticks text").classed("current", false)
           svg.selectAll(".ticks text." + formatClassDate(d3.timeDay.offset(endDate, 1))).classed("current", true)          
 
-
-          onStopTimeline();
+          onStopTimeline(currentDate);
           currentValue = 0;
           currentDate = startDate;
         } else {
