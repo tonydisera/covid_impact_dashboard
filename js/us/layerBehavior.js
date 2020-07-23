@@ -205,13 +205,26 @@ var promiseAddMarkers = function(layer) {
             fillOpacity: .6,
             dataObject: row,
           }).addTo(layer.leafletLayer);
-
-
-
         }
-
-        resolve();
       });      
+      layer.leafletLayer.eachLayer(function(featureLayer) {
+        featureLayer.on('mouseover', function() {
+          this.setStyle({
+            fillColor: "#ffffff",
+            color: "#e63939",
+          });
+          highlightCounty(featureLayer.options.dataObject);
+        });
+        featureLayer.on('mouseout', function() {
+          this.setStyle({
+              fillColor: "#ff6666",
+              color: "#e63939",
+          });
+          removeHighlights();
+        });
+
+      })      
+      resolve();
     } else {
       resolve();
     }
@@ -394,13 +407,13 @@ var highlightCounty = function(county) {
       + "<td>"
       + "Covid cases"
       + '</td><td>'
-      + county.dates[currentDate][layers.covid_cases_counties.countField]
+      + d3.format(",")(county.dates[currentDate][layers.covid_cases_counties.countField])
       + '</td></tr>';
     innerHTML +=  "<tr class='detail'>"
       + "<td>"
       + "Covid deaths"
       + '</td><td>'
-      + county.dates[currentDate][layers.covid_deaths_counties.countField]
+      + d3.format(",")(county.dates[currentDate][layers.covid_deaths_counties.countField])
       + '</td></tr>';
   }
   innerHTML += '</table></div>';

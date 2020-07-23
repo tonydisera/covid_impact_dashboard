@@ -29,7 +29,8 @@ var layers = {
     file: "./spatial/county.json",
     leafletLayer: null,
     popupFields: {
-      'county': 'County',
+      'state': 'State',
+      'county': 'County'
     }
   },
 
@@ -128,6 +129,7 @@ var layers = {
     leafletLayer: null,
     popupFields: {
       'county': 'County',
+      'state': 'State',
       'cases': 'Cumulative cases',
       'deaths': 'Deaths'    
     },

@@ -154,7 +154,6 @@ function timeslider() {
               clearInterval(timer);
               // timer = 0;
               button.text("Play")
-              onStopTimeline();
             } else {
               moving = true;
 
