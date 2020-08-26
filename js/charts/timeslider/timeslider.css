@@ -3,7 +3,7 @@
   color: white;
   display: flex;
   flex-flow: column;
-  padding-top: 5px;
+  padding-top: 0px;
 }
 
 #timeslider .timeslider-chart {

@@ -4,6 +4,16 @@ body, html {
 }
 
 
+#byline {
+  color: white;
+  padding-top: 5px;
+  padding-right: 5px;
+  font-size: 12px;
+  line-height: 12px;
+  color: white !important;
+
+}
+
 
 h4 {
   font-weight: 400 !important;
@@ -30,7 +40,6 @@ h4 {
   padding: 5px;
   background-color: #515151;
   color: white;
-  padding-left: 20px;
 }
 
 .container-fluid {
@@ -47,12 +56,12 @@ h4 {
 .top-panel {  
   background-color: #515151;
   color: white;
-  height: 130px
+  height: 150px;
 }
 
 .map.leaflet-container {
   width: 100% !important;
-  height: calc(100% - 130px) !important;
+  height: calc(100% - 150px) !important;
 
 }
 .map-wrapper {

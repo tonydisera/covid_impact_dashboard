@@ -1,7 +1,7 @@
 
 Split(['#one', '#two'], {
     sizes:       [30, 70],
-    minSize:     [320, 500],
+    minSize:     [350, 500],
     expandToMin: true,
     gutterSize:  5
 })
@@ -27,12 +27,28 @@ function inIframe () {
   }
 }
 
+var dataSourcesContent =  '<div id="data-credits" class="hide">' +
+        '<div> ' +
+          'COVID-19 Data from <a href="https://github.com/nytimes/covid-19-data">NY Times</a>' +
+        '</div>' +
+        '<div>' +
+        'Deaths other events from <a href="https://time.com/5815367/coronavirus-deaths-comparison">Time article</a>' +
+        '</div>'+
+      '</div> "';
+
 
 function init() {
 
 
 
-
+  $('#data-sources-popover').popover({
+    html: true,
+    content: function() {
+      var content = $(this).attr("data-popover-content");
+      return $(content).children(".popover-body").html();
+    }
+  })
+  
 
   promiseParseCovidStateData(layers.covid_cases_states)
   .then(function() {
