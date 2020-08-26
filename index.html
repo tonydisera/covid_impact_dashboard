@@ -83,10 +83,16 @@
            <span id="covid-death-counter"></span>
            <span id="covid-death-counter-header" class="covid-counter-header">Deaths</span>
          </span>
+         
          <div id="dot-chart" class="hide" >
          </div>
-         <div id="death-waffle-chart" class="waffle-chart hide" style="margin-top:13px">
-         </div>
+
+         <div id="death-waffle-chart-container" class="hide" style="display:flex;">
+           <div id="death-waffle-chart" class="waffle-chart hide" style="">
+           </div>
+           <div id="death-waffle-months">
+           </div>
+        </div>
 
          <div id="state-death-waffle-header" class="covid-counter-header hide" style="margin-top:40px">States with highest deaths</div>
          <div id="state-death-waffle-chart" class="waffle-chart hide" style="margin-top:10px">
@@ -97,7 +103,7 @@
 
      <div id="two" class="split" style="overflow-y:hidden" >
         <div class="top-panel" >
-          <div id="timeslider">
+          <div id="timeslider" class="hide">
             <div style="display:flex;">
               <button id="play-button">Play</button>
               <div style="display:flex;flex-grow:2;justify-content: center;align-items:center">

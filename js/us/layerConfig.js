@@ -48,7 +48,8 @@ var layers = {
     title: 'COVID Cases',
     group: 'COVID',
     groupExclusive: true,
-    file: "./data/nytimes-us-states.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv",
+    //file: "./data/nytimes-us-states.csv",
     leafletLayer: null,
     popupFields: {
       'state': 'State'    
@@ -84,7 +85,8 @@ var layers = {
     title: 'COVID Deaths',
     group: 'COVID',
     groupExclusive: true,
-    file: "./data/nytimes-us-states.csv",
+    //file: "./data/nytimes-us-states.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv",
     leafletLayer: null,
     popupFields: {
       'state': 'State'    
@@ -125,7 +127,8 @@ var layers = {
     title: 'Cases by county',
     group: 'COVID',
     groupExclusive: true,
-    file: "./data/nytimes-us-counties.csv",
+    //file: "./data/nytimes-us-counties.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
     leafletLayer: null,
     popupFields: {
       'county': 'County',
@@ -173,7 +176,8 @@ var layers = {
     title: 'Deaths by county',
     group: 'COVID',
     groupExclusive: true,
-    file: "./data/nytimes-us-counties.csv",
+    //file: "./data/nytimes-us-counties.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
     leafletLayer: null,
     popupFields: {
       'county': 'County',
@@ -223,7 +227,8 @@ var layers = {
     title: 'Cases by county (circles)',
     group: 'COVID',
     groupExclusive: true,
-    file: "./data/nytimes-us-counties.csv",
+    //file: "./data/nytimes-us-counties.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
     getRadius: function(value) {
       return value / 10;
     },
@@ -260,7 +265,7 @@ var layers = {
       createColorScale('covid_cases_counties_markers', 
         [0, percentile_95], 
         d3.interpolateYlOrRd, 0, 
-        'COVID-19 cumulative cases at county level',
+        'COVID-19 cumulative county cases',
         10, .1,
         true, false)
     },
@@ -278,9 +283,9 @@ var layers = {
       var legendSize = d3.legendSize()
         .scale(layers.covid_cases_counties_markers.scale)
         .shape('circle')
-        .shapePadding(80)
-        .shapeWidth(80)
-        .labelOffset(10)
+        .cells([10000,25000,50000,100000,200000])
+        .shapePadding(55)
+        .labelOffset(5)
         .labelWrap(50)
         .orient('horizontal')
         .labelFormat(".2s")

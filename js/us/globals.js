@@ -1,7 +1,7 @@
 var map = null;
 var timeslider = null;
 
-var centerPoint = [38.459873-5, -94.711468];
+var centerPoint = [38.459873-4, -94.711468-1];
 var bounds      = [[centerPoint[0]-3,   centerPoint[1]-1], [centerPoint[0]+3,   centerPoint[1]+1 ]];
 var bounds_mask = [[centerPoint[0]-2.6, centerPoint[1]-1], [centerPoint[0]+2.6, centerPoint[1]+1]];
 var defaultZoomLevel = 4.0;
@@ -12,8 +12,8 @@ var firstTimePlay = true;
 var stateMap = {}
 var countyMap = {}
 var groupedOverlays = {}
-var asOfDate    = "2020-07-21"
-var currentDate = "2020-07-21"
+var maxDate     = "";
+var currentDate = ""
 var maxCasesState = 0;
 var maxCasesCounty= 0;
 var maxDeathsState = 0;
@@ -34,6 +34,8 @@ var countsByState = {}
 
 var dotChartDeaths = null;
 var deathPoints = null;
+
+var casesByMonth = [];
 
 
 var newYorkCountyFips = "36061";
@@ -86,4 +88,6 @@ let deathData = [
   covidDeaths
 ]
 
+let WAFFLE_CELL_SIZE = 6;
+let WAFFLE_CELLS_PER_ROW = 10;
 let stateDeathData = []

@@ -30,27 +30,8 @@ function inIframe () {
 
 function init() {
 
-  map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
-  registerMap(map, 'map')
-
-  activateLayers('map', [
-
-    'covid_cases_counties',
-    'covid_cases_counties_markers',  
-
-    ], true)
-
-  registerMapOverlaysGrouped('map', 'covid_cases_counties');
-
-  map.setView(centerPoint, defaultZoomLevel);
-
-  var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo(map);
 
 
-  timeslider = timeslider()
-                    .width(720)
-                    .margin({top:18, right:10, bottom:15, left:18})
-  timeslider(d3.select("#timeslider"));
 
 
   promiseParseCovidStateData(layers.covid_cases_states)
@@ -61,7 +42,35 @@ function init() {
     return promiseParseCovidCountyData(layers.covid_cases_counties)
   })
   .then(function() {
+    currentDate = maxDate;
+
+    aggregateMonthlyTotals();
+
+    
+    map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
+    registerMap(map, 'map')
+
+    activateLayers('map', [
+
+      'covid_cases_counties',
+      'covid_cases_counties_markers',  
+
+      ], true)
+
+    registerMapOverlaysGrouped('map', 'covid_cases_counties');
+
+    map.setView(centerPoint, defaultZoomLevel);
+
+    var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo(map);
+
     createColorScales('map');
+
+
+    timeslider = timeslider()
+                  .width(820)
+                  .margin({top:18, right:10, bottom:15, left:18})
+    timeslider(d3.select("#timeslider"));
+
     return promiseAddStateLayer(map, layers.states);  
   })
   .then(function() {
@@ -108,12 +117,15 @@ function init() {
 
     showCaseCount(currentDate);
 
-    let theMonth = d3.timeFormat("%B %d")(new Date(currentDate + " 0:00"));
+    let theMonth = d3.timeFormat("%B %d")(Date.parse(currentDate + "T12:00:00"));
     d3.select("#month_display").text(theMonth);
 
-    
+
     getCountsByState(currentDate)
    
+    setTimeout(function(d) {
+      d3.select("#timeslider").classed("hide", false);
+    }, 1000)
 
   })
 
@@ -126,14 +138,14 @@ function init() {
 
 function onStopTimeline(date) {
   resetLayerStyles(date)
-  showCaseCount(asOfDate);
+  showCaseCount(maxDate);
 
-  theMonth = d3.timeFormat("%B %d")(new Date(currentDate + " 0:00"));
+  let theMonth = d3.timeFormat("%B %d")(Date.parse(currentDate + "T12:00:00"));
   d3.select("#month_display").text(theMonth);
   setTimeout(function(d) {
     
-    showDeathWaffleChart(asOfDate);    
-  }, 100)
+    showDeathWaffleChart(maxDate);    
+  }, 500)
 }
 
 function onTimelineTick(date) {
@@ -289,6 +301,7 @@ function showCaseCount(date) {
 function showDeathDotChart(date) {
   d3.select("#dot-chart").classed("hide", false);
   d3.select(".waffle-chart").classed("hide", true)
+  d3.select("#state-death-waffle-chart-container").classed("hide", true)
   d3.select("#state-death-waffle-chart").classed("hide", true)
   d3.select("#state-death-waffle-header").classed("hide", true)
 
@@ -315,8 +328,13 @@ function showDeathDotChart(date) {
 
 function showDeathWaffleChart(date) {
   d3.select("#dot-chart").classed("hide", true);
+  d3.select("#death-waffle-chart-container").classed("hide", false)
   d3.select("#death-waffle-chart").classed("hide", false)
-  fillWaffleChart(deathData, "#death-waffle-chart")  
+
+  let height = (covidDeaths.boxes/WAFFLE_CELLS_PER_ROW)*WAFFLE_CELL_SIZE
+
+  fillWaffleChart(deathData, "#death-waffle-chart", true,
+      casesByMonth, height, "#death-waffle-months")  
 
   setTimeout(function(d) {
     let rankedStates = getRankedStatesByDeath();

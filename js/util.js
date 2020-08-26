@@ -157,4 +157,3 @@ function detectIE() {
 function detectSafari() {
   return (navigator.userAgent.indexOf('Safari') != -1 && !detectChrome());
 }
-

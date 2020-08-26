@@ -67,7 +67,7 @@ h4 {
 }
 
 #month_display {
-  width: 200px;
+  width: 230px;
   font-size: 40px;
   font-weight: 300;
 }
@@ -75,8 +75,8 @@ h4 {
 .covid-counter-header {
   display: inline-block;
   font-size: 20px;
-  font-weight: 300;
-  padding-left: 4px;
+  font-weight: 500;
+  padding-left: 0px;
 }
 #covid-case-counter {
   font-size: 40px;
@@ -89,7 +89,7 @@ h4 {
   font-size: 40px;
   font-weight: 300;
   display: inline-block;
-  width: 160px;
+  width: 150px;
 }
 #covid-death-counter-header {
   color: #dec57b;
@@ -412,23 +412,25 @@ h4 {
 }
 
 .info.legend.covid_cases_counties_markers {
-  width: 375px;
+  width: 270px;
   background-color: #3a3939;
   border: thin solid #757575;
   fill: white;
   color: white;
-  height: 100px;
+  height: 85px;
   margin-bottom: 0px !important;  
   margin-right: 0px !important;
 }
 .info.legend.covid_cases_counties_markers svg {
-  width: 375px;
-  height: 80px;
+  width: 270px;
+  height: 75px;
+  margin-top: -10px;
 }
 .info.legend.covid_cases_counties_markers .legendCells circle.swatch  {
-  fill: #ff6666;
-  opacity: .8;
+  fill: transparent;
+  opacity: 1;
   stroke: #e63939;
+  stroke-width: 1.5px;
 }
 
 

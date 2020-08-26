@@ -7,7 +7,7 @@ function timeslider() {
   var formatYMD = d3.timeFormat("%Y-%m-%d")
 
   var startDate = new Date("2020-03-16"),
-      endDate = new Date(asOfDate);
+      endDate = new Date(maxDate);
 
 
   var countField = 'counts';
@@ -126,7 +126,7 @@ function timeslider() {
             } else {
               var time_diff = dateTicks[i].getTime() - dateTicks[i-1].getTime();
               var day_diff = time_diff / (1000 * 3600 * 24);
-              if (day_diff > 3) {
+              if (day_diff > 4) {
                 return formatDate(d)
               } else{
                 return "";

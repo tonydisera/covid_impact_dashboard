@@ -174,12 +174,8 @@ var promiseAddMarkers = function(layer) {
     })
     if (layer.scale == null) {
       layer.scale = d3.scaleSqrt()
-                        .domain([1, maxValue])
+                        .domain([10, maxValue])
                         .range([1, 32]);
-      //layer.scale = d3.scaleLinear().domain([1, maxValue]).range([1,30])
-      layer.scaleQuantile = d3.scaleQuantize()
-                              .domain([1, maxValue])
-                              .range([1,8,17,35])
     }
 
     function getRadius(row) {
@@ -228,9 +224,6 @@ var promiseAddMarkers = function(layer) {
     } else {
       resolve();
     }
-  
-    
-    
   })
 }
 
@@ -247,6 +240,93 @@ var setMarkerSize = function(layer) {
   layer.leafletLayer.eachLayer(function (marker) {      
     marker.setRadius(getRadius(marker));
   });    
+}
+
+var aggregateMonthlyTotals = function() {
+  var monthlyTotals = {};
+  let prev = null;
+  for (var key in stateMap) {
+    let stateObject = stateMap[key];
+    let sortedDateKeys = Object.keys(stateObject.dates).sort();
+    sortedDateKeys.forEach(function(dateKey) {
+      let dateObject  = stateObject.dates[dateKey];
+      let month       = dateKey.split("-")[1]
+
+      if (prev != null && month != prev.month) {
+        let monthCases = monthlyTotals[prev.month];
+        if (monthCases == null) {
+          monthCases = {cases: 0, deaths: 0};
+          monthlyTotals[prev.month] = monthCases;
+        }
+
+        monthCases.month  = prev.month
+        monthCases.monthDisplay =  d3.timeFormat("%b")(new Date(prev.date))
+        monthCases.cases  += +prev.dateObject.cases;
+        monthCases.deaths += +prev.dateObject.deaths;        
+      }
+      prev = {month: month, dateObject: dateObject, date: dateKey}
+    })
+    let monthCases = monthlyTotals[prev.month];
+    if (monthCases == null) {
+      monthCases = {cases: 0, deaths: 0, month: prev.month, monthDisplay: d3.timeParse("%b")(prev.dateObject)};
+      monthlyTotals[prev.month] = monthCases;
+    }
+
+    monthCases.month  = prev.month
+    monthCases.monthDisplay =  d3.timeFormat("%b")(new Date(prev.date))
+    monthCases.cases  += +prev.dateObject.cases;
+    monthCases.deaths += +prev.dateObject.deaths;        
+
+    prev = null;
+  }
+
+  casesByMonth = []; 
+  let sortedMonthKeys = Object.keys(monthlyTotals).sort(); 
+  sortedMonthKeys.forEach(function(month){
+    let monthCases = monthlyTotals[month];
+    casesByMonth.push(monthCases);
+  })
+
+  casesByMonth[0].casesForMonth = casesByMonth[0].cases;
+  casesByMonth[0].deathsForMonth = casesByMonth[0].deaths;
+  for (var i = 1; i < casesByMonth.length; i++) {
+    let monthCases = casesByMonth[i];
+    let prevMonthCases = casesByMonth[i-1]
+    monthCases.casesForMonth = monthCases.cases - prevMonthCases.cases;
+    monthCases.deathsForMonth = monthCases.deaths - prevMonthCases.deaths;
+  }
+
+  for (var i = 0; i < casesByMonth.length; i++) {
+    let monthObject = casesByMonth[i]
+    let nextMonthObject = null;
+    if (i < casesByMonth.length-1) {
+      nextMonthObject = casesByMonth[i+1]
+    }
+
+    let rows = monthObject.deaths / (deathFactor*WAFFLE_CELLS_PER_ROW);
+    let endY = rows * WAFFLE_CELL_SIZE;
+    monthObject.endY = endY;
+    if (nextMonthObject) {
+      nextMonthObject.startY = endY;
+    } else {
+      monthObject.startY = casesByMonth[i-1].endY;
+    }
+
+    if (i == 0) {
+      monthObject.startY = 0;
+    }
+  }
+
+
+  let totalCases = 0;
+  let totalDeaths= 0;
+  casesByMonth.forEach(function(a){ 
+    totalCases += a.casesForMonth
+    totalDeaths += a.deathsForMonth
+  })
+  console.log(totalCases);
+  console.log(totalDeaths);
+
 }
 
 
@@ -280,7 +360,7 @@ var promiseParseCovidStateData = function(layer) {
         }
         if (+deaths > maxDeathsState) {
           maxDeathsState = +deaths;
-        }
+        }    
       })
       resolve();
     })
@@ -331,6 +411,10 @@ var promiseParseCovidCountyData = function(layer) {
         if (+deaths > maxDeathsCounty) {
           maxDeathsCounty = deaths;
         }
+        if (date > maxDate) {
+          maxDate = date;
+        }
+
       })
       resolve();
     })
