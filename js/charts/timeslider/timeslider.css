@@ -36,11 +36,11 @@
  
 
 .ticks {
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .ticks text.current {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: bold;
 }
 

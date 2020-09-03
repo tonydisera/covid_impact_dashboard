@@ -122,7 +122,11 @@ function timeslider() {
           })
           .text(function(d,i) { 
             if ( i < dateTicks.length - 1 ) {
-              return formatDate(d); 
+              if ( i == 0 || i % 4 == 0) {
+                return formatDate(d); 
+              } else {
+                return "";
+              }
             } else {
               var time_diff = dateTicks[i].getTime() - dateTicks[i-1].getTime();
               var day_diff = time_diff / (1000 * 3600 * 24);

@@ -1,7 +1,7 @@
 
 Split(['#one', '#two'], {
-    sizes:       [30, 70],
-    minSize:     [350, 500],
+    sizes:       [35, 65],
+    minSize:     [360, 500],
     expandToMin: true,
     gutterSize:  5
 })
@@ -83,7 +83,7 @@ function init() {
 
 
     timeslider = timeslider()
-                  .width(820)
+                  .width(640)
                   .margin({top:18, right:10, bottom:15, left:18})
     timeslider(d3.select("#timeslider"));
 
@@ -133,7 +133,7 @@ function init() {
 
     showCaseCount(currentDate);
 
-    let theMonth = d3.timeFormat("%B %d")(Date.parse(currentDate + "T12:00:00"));
+    let theMonth = d3.timeFormat("%b %d")(Date.parse(currentDate + "T12:00:00"));
     d3.select("#month_display").text(theMonth);
 
 
@@ -156,7 +156,7 @@ function onStopTimeline(date) {
   resetLayerStyles(date)
   showCaseCount(maxDate);
 
-  let theMonth = d3.timeFormat("%B %d")(Date.parse(currentDate + "T12:00:00"));
+  let theMonth = d3.timeFormat("%b %d")(Date.parse(currentDate + "T12:00:00"));
   d3.select("#month_display").text(theMonth);
   setTimeout(function(d) {
     

@@ -25,7 +25,7 @@ function dotChart() {
       }
 
 
-      var cellSize = 8;
+      var cellSize = 6;
       var cellPadding = 1;
       var cols = Math.floor((w/2) / (cellSize + cellPadding));
       var r = 0;
