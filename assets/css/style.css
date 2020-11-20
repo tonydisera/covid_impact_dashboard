@@ -3,7 +3,21 @@ body, html {
  
 }
 
+#one {
+  min-width: 380px;
+  max-width: 380px;
+  margin-right: 5px;
+}
+#two {
+  width: 100%;
+}
 
+#covid-title {
+  color: white;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 500;
+}
 #byline {
   color: white;
   padding-top: 5px;
@@ -20,17 +34,7 @@ h4 {
 }
 
 
- 
-.leaflet-control-zoom.leaflet-bar.leaflet-control {
-  display: none;
-}
 
-.leaflet-control-layers.leaflet-control.leaflet-control-layers-expanded {
-  display: none;
-}
-.leaflet-control-layers.leaflet-control {
-  display: none;
-}
 
 .container-fluid {
   padding: 0px;
@@ -38,7 +42,7 @@ h4 {
 }
 #one {
   padding: 5px;
-  background-color: #515151;
+  background-color: #464646;
   color: white;
 }
 
@@ -54,9 +58,10 @@ h4 {
 }
 
 .top-panel {  
-  background-color: #515151;
+  background-color: #464646;
   color: white;
   height: 150px;
+  margin-top: 0px;
 }
 
 .map.leaflet-container {
@@ -76,9 +81,13 @@ h4 {
 }
 
 #month_display {
-  width: 230px;
-  font-size: 40px;
+  font-size: 30px;
+  line-height: 30px;
   font-weight: 300;
+}
+.mobile #month_display {
+  font-size: 22px;
+  line-height: 22px;
 }
 
 .covid-counter-header {
@@ -87,25 +96,41 @@ h4 {
   font-weight: 500;
   padding-left: 0px;
 }
+.mobile .covid-counter-header {
+  font-size: 15px;
+}
 #covid-case-counter {
   font-size: 40px;
-  font-weight: 300;
+  line-height: 45px;
+  font-weight: 400;
   width: 100px;
   display: inline-block;
-  
+  color: #ffd24d;
+}
+.mobile #covid-case-counter {
+  font-size: 27px;
+  line-height: 32px;
+  width: 70px;
 }
 #covid-death-counter {
   font-size: 40px;
-  font-weight: 300;
+  line-height: 40px;
+  font-weight: 400;
   display: inline-block;
-  width: 150px;
+  width: 162px;
+  color: #eb5f48;
+}
+.mobile #covid-death-counter {
+  font-size: 27px;
+  line-height: 20px;
+  width: 108px;
 }
 #covid-death-counter-header {
-  color: #dec57b;
+  color: #eb5f48;
 
 }
 #covid-case-counter-header {
-  color: #dc5e5d;
+  color: #ffd24d;
 
 }
 
@@ -438,7 +463,7 @@ h4 {
 .info.legend.covid_cases_counties_markers .legendCells circle.swatch  {
   fill: transparent;
   opacity: 1;
-  stroke: #e63939;
+  stroke: #dea909;
   stroke-width: 1.5px;
 }
 

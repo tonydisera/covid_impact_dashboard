@@ -1,12 +1,12 @@
 function dotChart() {
-  var w = 250, h = 640;
+  var w = 280, h = 570;
   
 
   var svg = null;
 
 
   let fillColor = function(d) {
-    return  "#DB1D25";
+    return  "#e7644e";
   }
 
   let firstTime = true;
@@ -25,7 +25,7 @@ function dotChart() {
       }
 
 
-      var cellSize = 6;
+      var cellSize = 8;
       var cellPadding = 1;
       var cols = Math.floor((w/2) / (cellSize + cellPadding));
       var r = 0;

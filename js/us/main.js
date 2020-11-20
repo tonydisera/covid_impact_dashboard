@@ -1,12 +1,3 @@
-
-Split(['#one', '#two'], {
-    sizes:       [35, 65],
-    minSize:     [360, 500],
-    expandToMin: true,
-    gutterSize:  5
-})
-
-
 $( document ).ready(function() {
   if (inIframe()) {
 
@@ -40,6 +31,7 @@ var dataSourcesContent =  '<div id="data-credits" class="hide">' +
 function init() {
 
 
+  d3.select('body').classed("mobile", isMobileOrTablet())
 
   $('#data-sources-popover').popover({
     html: true,
@@ -63,7 +55,7 @@ function init() {
     aggregateMonthlyTotals();
 
     
-    map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false})
+    map = L.map('mapid1', {zoomControl: false, scrollWheelZoom: false,  zoomSnap: 0.1})
     registerMap(map, 'map')
 
     activateLayers('map', [
@@ -77,13 +69,14 @@ function init() {
 
     map.setView(centerPoint, defaultZoomLevel);
 
-    var zoom_bar = new L.Control.ZoomBar({position: 'topleft', zoomDelta: .5}).addTo(map);
+    var zoom_bar = new L.Control.ZoomBar({position: 'bottomleft', zoomDelta: .1}).addTo(map);
 
     createColorScales('map');
 
 
     timeslider = timeslider()
-                  .width(640)
+                  .width(isMobileOrTablet? 450 : 600)
+                  .height(30)
                   .margin({top:18, right:10, bottom:15, left:18})
     timeslider(d3.select("#timeslider"));
 
@@ -133,7 +126,7 @@ function init() {
 
     showCaseCount(currentDate);
 
-    let theMonth = d3.timeFormat("%b %d")(Date.parse(currentDate + "T12:00:00"));
+    let theMonth = d3.timeFormat("%b %d %Y")(Date.parse(currentDate + "T12:00:00"));
     d3.select("#month_display").text(theMonth);
 
 
@@ -156,13 +149,15 @@ function onStopTimeline(date) {
   resetLayerStyles(date)
   showCaseCount(maxDate);
 
-  let theMonth = d3.timeFormat("%b %d")(Date.parse(currentDate + "T12:00:00"));
+  let theMonth = d3.timeFormat("%b %d %Y")(Date.parse(currentDate + "T12:00:00"));
   d3.select("#month_display").text(theMonth);
   setTimeout(function(d) {
     
     showDeathWaffleChart(maxDate);    
-  }, 500)
+  }, 2000)
 }
+
+
 
 function onTimelineTick(date) {
 
@@ -185,7 +180,7 @@ function resetLayerStyles(date) {
   currentDate = formatDate(date);
 
 
-  let theMonth = d3.timeFormat("%B")(date);
+  let theMonth = d3.timeFormat("%B %Y")(date);
   d3.select("#month_display").text(theMonth)
 
 

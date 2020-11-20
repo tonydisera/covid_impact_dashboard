@@ -174,7 +174,7 @@ function timeslider() {
 
       function firstStep() {
         step();
-        timer = setInterval(step, 150)
+        timer = setInterval(step, 50)
       }
         
       function step() {

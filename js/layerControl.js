@@ -12,6 +12,7 @@ var registerMap = function(map, mapName) {
   let mapObject = mapLayers[mapName]
   mapObject.map = map;
 
+
   
   darkMode = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
   maxZoom: 20,

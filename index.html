@@ -70,8 +70,8 @@
 
 
 
-  <div style="display:flex;height: calc(100% - 0px);padding: 5px">
-     <div id="one" class="split" style="overflow-y:auto;">
+  <div style="display:flex;height: calc(100% - 0px);">
+     <div id="one"  style="overflow-y:auto;">
 
        <div class="case-stats hide">
          <div id="bubblechart" style="text-align:center">
@@ -79,7 +79,7 @@
       </div>
       
       <div class="death-stats hide" style="">
-         <span style="padding-left:10px" >
+         <span style="padding-left:10px;margin-top:-5px" >
            <span id="covid-death-counter"></span>
            <span id="covid-death-counter-header" class="covid-counter-header">Deaths</span>
          </span>
@@ -100,20 +100,7 @@
 
 
 
-        <a  id="data-sources-popover" style="position:fixed;bottom:10px;left:10px;font-size:12px;color:white" tabindex="0"  role="button" data-placement="left" data-toggle="popover"  title="Data sources" 
-        data-popover-content="#data-credits-popover">Data sources</a>
 
-
-        <div id="data-credits-popover" class="hide">
-          <div class="popover-body">
-            <div> 
-              COVID-19 Data from <a href="https://github.com/nytimes/covid-19-data" target="_data_sources_new">NY Times</a>
-            </div>
-            <div>
-            Deaths other events from <a href="https://time.com/5815367/coronavirus-deaths-comparison" target="_data_sources_new">Time article</a>
-            </div>
-          </div>
-        </div> 
 
 
       </div>
@@ -121,25 +108,49 @@
  
     </div>
 
-     <div id="two" class="split" style="overflow-y:hidden" >
+     <div id="two" style="overflow-y:hidden" >
         <div class="top-panel" >
-          <div style="display:flex;justify-content: flex-end" >
+
+          <div style="position:absolute;top:5px;right:10px;color:white" >
+            <div id="covid-title">COVID-19 in the U.S.</div>
+          </div>
+          <div style="position:absolute;top:35px;right:10px;font-size:12px;color:white" >
             <a id="byline" href="http://ischool.berkeley.edu/~tonydisera/profile/" target="_tony">by Tony Di Sera</a>
           </div>
-          <div id="timeslider" class="hide" >
+          <div style="position:absolute;top:50px;right:10px;font-size:12px;color:white" >
+            <a  id="data-sources-popover" tabindex="0"  role="button" data-placement="left" data-toggle="popover"  title="Data sources" 
+            data-popover-content="#data-credits-popover">data sources</a>
+          </div>
+
+
+
+          <div id="data-credits-popover" class="hide">
+            <div class="popover-body">
+              <div> 
+                COVID-19 Data from <a href="https://github.com/nytimes/covid-19-data" target="_data_sources_new">NY Times</a>
+              </div>
+              <div>
+              Deaths other events from <a href="https://time.com/5815367/coronavirus-deaths-comparison" target="_data_sources_new">Time article</a>
+              </div>
+            </div>
+          </div> 
+
+          <div style="text-align:left;margin-left: 5px">
+             <span id="covid-case-counter"></span>
+             <span id="covid-case-counter-header" class="covid-counter-header hide">Cumulative Cases</span>
+          </div>
+
+          <div id="timeslider" class="hide" style="margin-top:10px">
             <div style="display:flex;">
-              <button id="play-button">Play</button>
               <div style="display:flex;flex-grow:2;justify-content: center;align-items:center">
 
                <span style="" id="month_display"></span>
                <span style="padding-right:20px;font-size:40px" class="hide">US COVID-19</span>
-               <span style="">
-                 <span id="covid-case-counter"></span>
-                 <span id="covid-case-counter-header" class="covid-counter-header hide">Cumulative Cases</span>
-               </span>
               </div>
             </div>
             <div class="timeslider-chart" >
+                <button id="play-button">Play</button>
+
             </div>
           </div>
         </div>

@@ -24,7 +24,7 @@
   display: flex;
   flex-wrap: wrap-reverse;
   width: 60px;
-  height: 600px;
+  height: 580px;
   justify-content: flex-start;
   align-content: flex-start;
 }
@@ -58,8 +58,8 @@ line.death-month {
   align-content: flex-start;
 }
 .waffle-chart .box {
-  width: 5px;
-  height: 5px;
+  width: 4px;
+  height: 4px;
   margin: .5px;
   z-index: 0;
   background-color: #FF7373;
@@ -85,6 +85,8 @@ line.death-month {
 
 .waffle-chart .count-container {
   font-size: 14px;
+  line-height: 10px;
+  height: 12px;
 }
 
 
