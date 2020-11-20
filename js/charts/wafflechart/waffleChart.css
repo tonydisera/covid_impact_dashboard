@@ -71,17 +71,17 @@ line.death-month {
 }
 .waffle-chart .label-container, .count-container {
   display: flex;
-  margin: 2px;
+  margin: 0px;
+  margin-top: 2px;
+  margin-left: 2px;
   width: 50px;
-  height: 20px;
-  font-size: 14px;
-  line-height: 20px;
+  height: 14px;
+  font-size: 13px;
+  line-height: 13px;
   font-weight: 400;
   justify-content: center;
 }
-.waffle-chart .label-container {
-  line-height: 16px;
-}
+
 
 .waffle-chart .count-container {
   font-size: 14px;
