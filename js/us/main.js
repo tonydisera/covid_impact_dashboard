@@ -61,7 +61,9 @@ function init() {
     activateLayers('map', [
 
       'covid_cases_counties',
-      'covid_cases_counties_markers',  
+      'covid_cases_counties_markers', 
+      'covid_deaths_counties', 
+      'covid_deaths_counties_markers', 
 
       ], true)
 
@@ -100,6 +102,10 @@ function init() {
   })
   .then(function() {
     return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
+  })
+  .then(function() {
+    //return Promise.resolve();
+    return promiseAddMarkers(layers.covid_deaths_counties_markers);  
   })
   .then(function() {
     addMapLegends('map');

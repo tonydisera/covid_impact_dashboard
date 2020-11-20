@@ -194,8 +194,8 @@ var promiseAddMarkers = function(layer) {
 
           var circle = L.circleMarker([row.lat,  row.lng], {
             radius: getRadius(row),
-            fillColor: "#ffd24d",
-            color: "#db9f12",
+            fillColor: layer.markerColors.fillColor,
+            color: layer.markerColors.color,
             weight: 1,
             opacity: 1,
             fillOpacity: .55,
@@ -207,14 +207,14 @@ var promiseAddMarkers = function(layer) {
         featureLayer.on('mouseover', function() {
           this.setStyle({
             fillColor: "#ffffff",
-            color: "#db9f12",
+            color: layer.markerColors.color,
           });
           highlightCounty(featureLayer.options.dataObject);
         });
         featureLayer.on('mouseout', function() {
           this.setStyle({
-              fillColor: "#ffd24d",
-              color: "#db9f12",
+            fillColor: layer.markerColors.fillColor,
+            color: layer.markerColors.color,
           });
           removeHighlights();
         });

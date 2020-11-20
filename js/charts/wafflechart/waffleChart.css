@@ -24,7 +24,7 @@
   display: flex;
   flex-wrap: wrap-reverse;
   width: 60px;
-  height: 575px;
+  height: 585px;
   justify-content: flex-start;
   align-content: flex-start;
 }

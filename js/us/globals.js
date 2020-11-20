@@ -49,7 +49,7 @@ var casesByMonth = [];
 var newYorkCountyFips = "36061";
 
 //var deathColor       = "#9dabd3";
-var deathColor = "#eb5f48";
+var deathColor = "#80b7ff";
 var otherDeathColor  = "#c1c7d7";
 
 let deathFactor = 300
@@ -88,7 +88,7 @@ let deathData = [
 
   },
   {
-  	"name": "World War I",
+  	"name": "WWI",
   	"capacity": capacity/deathFactor,
     "deaths": 116500,
   	"boxes": 116500/deathFactor,
@@ -96,7 +96,7 @@ let deathData = [
 
   },
   {
-    "name": "World War II",
+    "name": "WWII",
     "capacity": capacity/deathFactor,
     "deaths": 405399,
     "boxes": 405399/deathFactor,

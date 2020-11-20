@@ -112,11 +112,11 @@ h4 {
   font-weight: 400;
   display: inline-block;
   width: 138px;
-  color: #eb5f48;
+  color: #80b7ff;
 }
 
 #covid-death-counter-header {
-  color: #eb5f48;
+  color: #80b7ff;
 
 }
 #covid-case-counter-header {
@@ -457,6 +457,27 @@ h4 {
   stroke-width: 1.5px;
 }
 
+.info.legend.covid_deaths_counties_markers {
+  width: 270px;
+  background-color: #3a3939;
+  border: thin solid #757575;
+  fill: white;
+  color: white;
+  height: 85px;
+  margin-bottom: 0px !important;  
+  margin-right: 0px !important;
+}
+.info.legend.covid_deaths_counties_markers svg {
+  width: 270px;
+  height: 75px;
+  margin-top: -10px;
+}
+.info.legend.covid_deaths_counties_markers .legendCells circle.swatch  {
+  fill: transparent;
+  opacity: 1;
+  stroke: #5ca2fe;
+  stroke-width: 1.5px;
+}
 
 
 .gutter {

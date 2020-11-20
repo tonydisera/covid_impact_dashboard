@@ -156,7 +156,8 @@ var registerMapOverlaysGrouped = function(mapName, defaultLayerName) {
   groupedOverlays = {}
 
   let options = {
-    exclusiveGroups: []
+    exclusiveGroups: [],
+    position: 'bottomleft'
   }
 
   let defaultLayer = layers[defaultLayerName];

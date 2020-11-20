@@ -207,11 +207,11 @@ var layers = {
           return 0;
         }
       }); 
-      var maxScale = 220;
+      var maxScale = 6000;
 
       createColorScale('covid_deaths_counties', 
         [0, maxScale], 
-        d3.interpolateReds, 0, 
+        d3.interpolateYlGnBu, .2, 
         'COVID-19 deaths by county',
         10, .1,
         true, false)
@@ -229,14 +229,15 @@ var layers = {
     groupExclusive: true,
     //file: "./data/nytimes-us-counties.csv",
     file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
-    getRadius: function(value) {
-      return value / 10;
-    },
     leafletLayer: null,
     popupFields: {
       'county': 'County',
       'countyFips': 'County fips',
       'stateFips': 'State fips'    
+    },
+    markerColors: {
+      'fillColor': "#ffd24d",
+      'color': "#db9f12",
     },
     countField: 'cases',
     dataMap: countyMap,
@@ -284,6 +285,83 @@ var layers = {
         .scale(layers.covid_cases_counties_markers.scale)
         .shape('circle')
         .cells([10000,25000,50000,100000,200000])
+        .shapePadding(55)
+        .labelOffset(5)
+        .labelWrap(50)
+        .orient('horizontal')
+        .labelFormat(".2s")
+
+      svg.select(".legendSize")
+        .call(legendSize);
+    }
+
+  } ,
+
+  'covid_deaths_counties_markers': {
+    dataDate: "2020-06-27",    
+    active: false,
+    overlay: true,
+    title: 'Deaths by county (circles)',
+    group: 'COVID',
+    groupExclusive: true,
+    //file: "./data/nytimes-us-counties.csv",
+    file: "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv",
+    leafletLayer: null,
+    markerColors: {
+      'fillColor': "#5ca2fe",
+      'color': "#5ca2fe",
+    },
+    popupFields: {
+      'county': 'County',
+      'countyFips': 'County fips',
+      'stateFips': 'State fips'    
+    },
+    countField: 'deaths',
+    dataMap: countyMap,
+    getValue: function(countyObject) {
+      if (countyObject && countyObject.dates && countyObject.dates[currentDate]) {      
+        let val = countyObject.dates[currentDate][layers.covid_deaths_counties.countField];
+        if ( val && val != '' && val != 'NA') {
+          return parseInt(val);
+        } else {
+          return 0;
+        }
+      } else {
+        return 0;
+      }
+    },
+    createColorScale: function() {
+      var data = Object.keys(countyMap).map(function (key) { 
+        if (countyMap[key].dates[currentDate]) {
+          return +countyMap[key].dates[currentDate][layers.covid_deaths_counties.countField]; 
+        } else {
+          return 0;
+        }
+      }); 
+      var percentile_95 = ss.quantile(data, .95)
+
+      createColorScale('covid_deaths_counties_markers', 
+        [0, percentile_95], 
+        d3.interpolateYlOrRd, 0, 
+        'COVID-19 cumulative county deaths',
+        10, .1,
+        true, false)
+    },
+    onLegendAdded: function() {
+
+      let layerKey = "covid_deaths_counties_markers"
+
+      d3.select(".info.legend."+layerKey).selectAll(".color-legend-row").remove();
+      var svg = d3.select(".info.legend."+layerKey).append("svg");
+
+      svg.append("g")
+        .attr("class", "legendSize")
+        .attr("transform", "translate(10, 34)");
+
+      var legendSize = d3.legendSize()
+        .scale(layers.covid_deaths_counties_markers.scale)
+        .shape('circle')
+        .cells([50,100,500,1000,10000])
         .shapePadding(55)
         .labelOffset(5)
         .labelWrap(50)

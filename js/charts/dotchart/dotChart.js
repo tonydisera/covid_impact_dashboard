@@ -6,7 +6,7 @@ function dotChart() {
 
 
   let fillColor = function(d) {
-    return  "#e7644e";
+    return  "#80b7ff";
   }
 
   let firstTime = true;
