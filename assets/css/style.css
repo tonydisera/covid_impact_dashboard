@@ -98,20 +98,20 @@ h4 {
 }
 
 #covid-case-counter {
-  font-size: 35px;
-  line-height: 45px;
+  font-size: 32px;
+  line-height: 42px;
   font-weight: 400;
-  width: 100px;
+  width: 90px;
   display: inline-block;
   color: #ffd24d;
 }
 
 #covid-death-counter {
-  font-size: 35px;
-  line-height: 35px;
+  font-size: 32px;
+  line-height: 32px;
   font-weight: 400;
   display: inline-block;
-  width: 162px;
+  width: 138px;
   color: #eb5f48;
 }
 
