@@ -198,7 +198,7 @@ var promiseAddMarkers = function(layer) {
             color: layer.markerColors.color,
             weight: 1,
             opacity: 1,
-            fillOpacity: .55,
+            fillOpacity: .45,
             dataObject: row,
           }).addTo(layer.leafletLayer);
         }

@@ -103,7 +103,7 @@ h4 {
   font-weight: 400;
   width: 90px;
   display: inline-block;
-  color: #ffd24d;
+  color: #8dcf6f;
 }
 
 #covid-death-counter {
@@ -120,7 +120,7 @@ h4 {
 
 }
 #covid-case-counter-header {
-  color: #ffd24d;
+  color: #8dcf6f;
 
 }
 
@@ -453,7 +453,7 @@ h4 {
 .info.legend.covid_cases_counties_markers .legendCells circle.swatch  {
   fill: transparent;
   opacity: 1;
-  stroke: #dea909;
+  stroke: #8dcf6f;
   stroke-width: 1.5px;
 }
 

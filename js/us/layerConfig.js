@@ -162,7 +162,7 @@ var layers = {
 
       createColorScale('covid_cases_counties', 
         [0, percentile_95], 
-        d3.interpolateYlOrRd, .3, 
+        d3.interpolateYlGn, .3, 
         'COVID-19 cumulative cases (county)',
         10, .1,
         false, false)
@@ -236,8 +236,8 @@ var layers = {
       'stateFips': 'State fips'    
     },
     markerColors: {
-      'fillColor': "#ffd24d",
-      'color': "#db9f12",
+      'fillColor': "#8dcf6f",
+      'color': "#8dcf6f",
     },
     countField: 'cases',
     dataMap: countyMap,
