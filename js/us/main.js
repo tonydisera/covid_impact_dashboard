@@ -41,8 +41,13 @@ function init() {
     }
   })
   
-
-  promiseParseCovidStateData(layers.covid_cases_states)
+  promiseParseStatePopulation()
+  .then( function() {
+    return promiseParseCovidStateData(layers.covid_cases_states)
+  })
+  .then(function() {
+    return promiseParseCovidAgeData();
+  })
   .then(function() {
     return promiseParseCountyInfoData();
   })
@@ -125,6 +130,27 @@ function init() {
     dotChartDeaths = dotChart();
     dotChartDeaths.fillColor(function(d,i) {
       return deathColor;
+    })
+
+    treeChartDeathsByAge = treeChart();
+    treeChartDeathsByAge.getCategory(function(d) {
+      return d['Age group']
+    })
+    
+    treeChartDeathsByState = treeChart();
+    treeChartDeathsByState.getCategory(function(d) {
+      return d['State']
+    })
+    treeChartDeathsByState.getValue(function(d) {
+      return d['COVID-19 Deaths']
+    })
+
+    treeChartDeathsByStatePer100K = treeChart();
+    treeChartDeathsByStatePer100K.getCategory(function(d) {
+      return d['State']
+    })
+    treeChartDeathsByStatePer100K.getValue(function(d) {
+      return d['COVID-19 Deaths per 100K']
     })
 
     d3.select(".case-stats").classed("hide", false)
@@ -261,7 +287,7 @@ function getCountsByState(date) {
     return countMap[key];
   })
 
-  console.log(getRankedStatesByDeath())
+  //console.log(getRankedStatesByDeath())
 }
 
 function getRankedStatesByDeath() {
@@ -374,6 +400,54 @@ function showDeathWaffleChart(date) {
   }, 6000)
 
 
+}
+
+function showDeathByAgeChart() {
+  $('#deathByAgeModal').modal('show')
+  d3.select("#dot-chart").classed("hide", true);
+  d3.select("#death-waffle-chart-container").classed("hide", true)
+  d3.select("#death-waffle-chart").classed("hide", true)
+
+  setTimeout(function() {
+    d3.select("death-by-age-chart-container").classed("hide", false)
+    let selection = d3.select("#death-by-age-chart-container")
+                      .datum(deathByAgeData);
+
+    treeChartDeaths(selection)
+
+  }, 2000)
+
+}
+
+function showDeathByAgeChart() {
+  $('#deathByAgeModal').modal('show')
+  d3.select("death-by-age-chart-container").classed("hide", false)
+  let selection = d3.select("#death-by-age-chart-container")
+                    .datum(deathByAgeData);
+
+  treeChartDeathsByAge(selection)
+}
+
+function showDeathByStateChart() {
+  $('#deathByStateModal').modal('show')
+  d3.select("death-by-state-chart-container").classed("hide", false)
+  let selection = d3.select("#death-by-state-chart-container")
+                    .datum(deathByStateData);
+
+  treeChartDeathsByState(selection)
+}
+
+function onCheckLayer() {
+
+}
+function showDeathByStatePer100KChart() {
+  $('#deathByStatePer100KModal').modal('show')
+
+  d3.select("death-by-state-per-100k-chart-container").classed("hide", false)
+  let selection = d3.select("#death-by-state-per-100k-chart-container")
+                    .datum(deathByStateData);
+
+  treeChartDeathsByStatePer100K(selection)
 }
 
 function onCheckLayer() {

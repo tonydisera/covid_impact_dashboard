@@ -27,6 +27,10 @@ var maxCasesCounty= 0;
 var maxDeathsState = 0;
 var maxDeathsCounty = 0;
 
+var deathByAgeData = null;
+var deathByStateData = null;
+var statePopulationMap = {};
+
 var darkMode;
 var lightMode;
 
@@ -43,6 +47,10 @@ var countsByState = {}
 var dotChartDeaths = null;
 var deathPoints = null;
 
+var treeChartDeathsByAge = null;
+var treeChartDeathsByState = null;
+var treeChartDeathsByStatePer100K = null;
+
 var casesByMonth = [];
 
 
@@ -52,7 +60,7 @@ var newYorkCountyFips = "36061";
 var deathColor = "#80b7ff";
 var otherDeathColor  = "#c1c7d7";
 
-let deathFactor = 300
+let deathFactor = 350
 let covidDeaths = {
     "name": "COVID-19",
     "capacity": 0,
@@ -109,3 +117,5 @@ let deathData = [
 let WAFFLE_CELL_SIZE = 5;
 let WAFFLE_CELLS_PER_ROW = 12;
 let stateDeathData = []
+
+

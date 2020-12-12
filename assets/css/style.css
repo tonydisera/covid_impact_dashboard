@@ -3,6 +3,10 @@ body, html {
  
 }
 
+div.credit {
+  margin-top: 10px !important;
+}
+
 #one {
   min-width: 380px;
   max-width: 380px;
@@ -113,6 +117,14 @@ h4 {
   display: inline-block;
   width: 138px;
   color: #80b7ff;
+}
+
+.covid-death-link {
+  color: white !important;
+  font-size: 13px !important;
+  display: inline-block;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 #covid-death-counter-header {

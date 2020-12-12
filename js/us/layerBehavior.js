@@ -329,6 +329,109 @@ var aggregateMonthlyTotals = function() {
 
 }
 
+var promiseParseCovidAgeData = function() {
+  let ageGroup1 = ['All Ages',
+                  '0-17 years',
+                  '18-29 years',
+                  '30-49 years',
+                  '50-64 years',
+                  '65-74 years',
+                  '75-84 years',
+                  '85 years and over'
+  ]
+  let ageGroup2 = [
+                  'All Ages',
+                  '1-4 years',
+                  '5-14 years',
+                  '15-24 years',
+                  '25-34 years',
+                  '35-44 years',
+                  '45-54 years',
+                  '55-64 years',
+                  '65-74 years',
+                  '75-84 years',
+                  '85 years and over'
+  ]
+  return new Promise(function(resolve, reject) {
+    d3.csv("https://data.cdc.gov/api/views/9bhg-hcku/rows.csv?accessType=DOWNLOAD").then(function(data) {
+     
+      deathByAgeData = data.filter(function(row) {
+        return row.Sex == 'All Sexes' 
+        && row.State == 'United States'
+        && ageGroup2.indexOf(row['Age group']) >= 0;
+      })
+      deathByAgeData.forEach(function(row) {
+        if (row['Age group'] == 'All Ages') {
+          row.parent = null
+        } else {
+          row.parent = 'All Ages'
+        }
+      })
+      deathByAgeData.forEach(function(row) {
+        if (row['Age group'] == 'All Ages') {
+          row['COVID-19 Deaths'] = 0
+        } 
+      })
+      
+      deathByState = data.filter(function(row) {
+        return row.Sex == 'All Sexes' 
+        && row['Age group'] == 'All Ages';
+      })
+      deathByState.forEach(function(row) {
+        if (row['State'] == 'United States') {
+          row.parent = null
+        } else {
+          row.parent = 'United States'
+          if (row['State'] == 'New York City') {
+            row['State'] = "New York"
+          }
+        }
+      })
+      deathByState.forEach(function(row) {
+        if (row['State'] == 'United States') {
+          row['COVID-19 Deaths'] = 0
+        } 
+      })
+
+      deathByStateNestedData = d3.nest()
+      .key(function(d) { 
+        return d.State; 
+      })
+      .rollup(function(v) { 
+        return d3.sum(v, function(d) {
+          return +d['COVID-19 Deaths']; 
+        })
+      })
+      .object(deathByState);
+      
+      deathByStateData = Object.entries(deathByStateNestedData).map(function(d) {
+        let covidDeaths = d[1]
+        let state = d[0]
+        let pop = state != 'United States' ? statePopulationMap[state] : 0;
+        let deathPer100K = 0;
+        if (pop != 0 && covidDeaths != 0) {
+          deathPer100K = Math.round((covidDeaths / pop) * 100000, 0);
+        };
+        return {'State': state, 'COVID-19 Deaths': covidDeaths, 'parent': state == 'United States' ? null : 'United States', 'population': pop, 'COVID-19 Deaths per 100K': deathPer100K}
+      })
+
+
+      resolve();
+    })
+  })
+}
+
+var promiseParseStatePopulation = function() {
+  return new Promise(function(resolve, reject) {
+    d3.csv("data/us_state_population.csv").then(function(data) {
+      data.forEach(function(d) {
+        statePopulationMap[d.state] = +d.population_2019;
+      })
+      resolve()
+    })
+  })
+}
+
 
 var promiseParseCovidStateData = function(layer) {
   return new Promise(function(resolve, reject) {

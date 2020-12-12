@@ -83,6 +83,11 @@
            <span id="covid-death-counter"></span>
            <span id="covid-death-counter-header" class="covid-counter-header">Deaths</span>
          </span>
+         <div>
+           <a class="covid-death-link"  onclick="showDeathByAgeChart()">by age</a>
+           <a class="covid-death-link" onclick="showDeathByStateChart()">by state</a>
+           <a class="covid-death-link" onclick="showDeathByStatePer100KChart()">by state per 100K</a>
+         </div>
          
          <div id="dot-chart" class="hide" >
          </div>
@@ -97,6 +102,10 @@
          <div id="state-death-waffle-header" class="covid-counter-header hide" style="margin-top:40px">States with highest deaths</div>
          <div id="state-death-waffle-chart" class="waffle-chart hide" style="margin-top:10px">
          </div>
+
+
+            
+        
 
 
 
@@ -126,10 +135,16 @@
 
           <div id="data-credits-popover" class="hide">
             <div class="popover-body">
-              <div> 
+              <div class="credit"> 
                 COVID-19 Data from <a href="https://github.com/nytimes/covid-19-data" target="_data_sources_new">NY Times</a>
               </div>
-              <div>
+              <div class="credit"">
+                COVID-19 Deaths by Age and State (shown in tree chart) from CDC <a href="https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36/data">COVID-19 Case Surveillance Public Use Data</a>
+              </div>
+              <div class="credit">
+                State populations to calculate COVID-19 deaths per 100K (shown in tree chart) from 2019 U.S. Census
+              </div>
+              <div class="credit">
               Deaths other events from <a href="https://time.com/5815367/coronavirus-deaths-comparison" target="_data_sources_new">Time article</a>
               </div>
             </div>
@@ -162,6 +177,62 @@
   </div>
 
  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="deathByAgeModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" style="min-width:940px;min-height:600px" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" >U.S. COVID-19 deaths by age</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div id="death-by-age-chart-container">
+
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deathByStateModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:940px;min-height:600px">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" >U.S. COVID-19 deaths by state</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div id="death-by-state-chart-container">
+
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="deathByStatePer100KModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="min-width:940px;min-height:600px">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" >U.S. COVID-19 deaths by state per 100K</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div id="death-by-state-per-100k-chart-container">
+
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 
 <script src="js/us/globals.js"></script>
@@ -177,6 +248,7 @@
 <script src="js/charts/bubblechart/bubbleChart.js"></script>
 
 
+<script src="js/charts/treechart/treeChart.js"></script>
 
 <script src="js/util.js"></script>
 
