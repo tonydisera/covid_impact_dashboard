@@ -72,7 +72,7 @@ var layers = {
       createColorScale('covid_cases_states', 
         [0, maxCasesState], 
         d3.interpolateYlOrRd, .3, 
-        'COVID-19 cases',
+        'Cumulatative cases by county',
         10, .1,
         true, false)
     },
@@ -109,7 +109,7 @@ var layers = {
       createColorScale('covid_deaths_states', 
         [0, maxDeathsState], 
         d3.interpolateReds, 0, 
-        'COVID-19 deaths',
+        'Deaths by State',
         10, .1,
         true, false)
     },
@@ -163,9 +163,9 @@ var layers = {
       createColorScale('covid_cases_counties', 
         [0, percentile_95], 
         d3.interpolateYlGn, .3, 
-        'COVID-19 cumulative cases (county)',
+        'Cumulative cases by county ',
         10, .1,
-        false, false)
+        true, false)
     },
   },
 
@@ -212,7 +212,7 @@ var layers = {
       createColorScale('covid_deaths_counties', 
         [0, maxScale], 
         d3.interpolateYlGnBu, .2, 
-        'COVID-19 deaths by county',
+        'Deaths by county',
         10, .1,
         true, false)
     },
@@ -266,7 +266,7 @@ var layers = {
       createColorScale('covid_cases_counties_markers', 
         [0, percentile_95], 
         d3.interpolateYlOrRd, 0, 
-        'COVID-19 cumulative county cases',
+        'Cumulative cases by county',
         10, .1,
         true, false)
     },
@@ -320,7 +320,7 @@ var layers = {
     dataMap: countyMap,
     getValue: function(countyObject) {
       if (countyObject && countyObject.dates && countyObject.dates[currentDate]) {      
-        let val = countyObject.dates[currentDate][layers.covid_deaths_counties.countField];
+        let val = countyObject.dates[currentDate][layers.covid_deaths_counties_markers.countField];
         if ( val && val != '' && val != 'NA') {
           return parseInt(val);
         } else {
@@ -333,7 +333,7 @@ var layers = {
     createColorScale: function() {
       var data = Object.keys(countyMap).map(function (key) { 
         if (countyMap[key].dates[currentDate]) {
-          return +countyMap[key].dates[currentDate][layers.covid_deaths_counties.countField]; 
+          return +countyMap[key].dates[currentDate][layers.covid_deaths_counties_markers.countField]; 
         } else {
           return 0;
         }
@@ -343,7 +343,7 @@ var layers = {
       createColorScale('covid_deaths_counties_markers', 
         [0, percentile_95], 
         d3.interpolateYlOrRd, 0, 
-        'COVID-19 cumulative county deaths',
+        'Deaths by county',
         10, .1,
         true, false)
     },

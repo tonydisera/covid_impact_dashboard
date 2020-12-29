@@ -18,6 +18,36 @@ function inIframe () {
   }
 }
 
+function onDeathPerCapita() {
+  d3.select("#deathByStateModal #button-death-per-capita").classed("hide", true)
+  d3.select("#deathByStateModal #button-total-death").classed("hide", false)
+  d3.select("#deathByStateModal .modal-title").text("U.S. COVID-19 deaths (per 100K) by state")
+  treeChartDeathsByState.getValue(function(d) {
+    return d['COVID-19 Deaths per 100K']
+  })
+
+  //d3.select("death-by-state-chart-container").classed("hide", false)
+  let selection = d3.select("#death-by-state-chart-container")
+                    .datum(deathByStateData);
+
+  treeChartDeathsByState(selection)
+}
+
+function onDeathTotal() {
+  d3.select("#deathByStateModal #button-death-per-capita").classed("hide", false)
+  d3.select("#deathByStateModal #button-total-death").classed("hide", true)
+  d3.select("#deathByStateModal .modal-title").text("U.S. COVID-19 deaths (total) by state")
+  treeChartDeathsByState.getValue(function(d) {
+    return d['COVID-19 Deaths']
+  })
+  
+  //d3.select("death-by-state-chart-container").classed("hide", false)
+  let selection = d3.select("#death-by-state-chart-container")
+                    .datum(deathByStateData);
+
+  treeChartDeathsByState(selection)
+}
+
 var dataSourcesContent =  '<div id="data-credits" class="hide">' +
         '<div> ' +
           'COVID-19 Data from <a href="https://github.com/nytimes/covid-19-data">NY Times</a>' +
@@ -65,14 +95,13 @@ function init() {
 
     activateLayers('map', [
 
-      'covid_cases_counties',
       'covid_cases_counties_markers', 
-      'covid_deaths_counties', 
+      'covid_cases_counties',      
       'covid_deaths_counties_markers', 
 
       ], true)
 
-    registerMapOverlaysGrouped('map', 'covid_cases_counties');
+    registerMapOverlaysGrouped('map', 'covid_cases_counties_markers');
 
     map.setView(centerPoint, defaultZoomLevel);
 
@@ -103,7 +132,7 @@ function init() {
   })
   .then(function() {
     //return Promise.resolve();
-    return promiseAddMarkers(layers.covid_cases_counties_markers);  
+    return promiseAddMarkers(layers.covid_cases_counties_markers, true);  
   })
   .then(function() {
     return promiseAddCountyLayer(map, layers.covid_deaths_counties);  
@@ -136,7 +165,11 @@ function init() {
     treeChartDeathsByAge.getCategory(function(d) {
       return d['Age group']
     })
-    
+    .margin({top: 10, right: 80, bottom: 40, left: 10})
+    .tooltipFields(["Age group", "COVID-19 Deaths", "Total Deaths", 
+      "Pneumonia Deaths", "Pneumonia and COVID-19 Deaths", 
+      "Influenza Deaths", "Pneumonia, Influenza, or COVID-19 Deaths"]
+    )
     treeChartDeathsByState = treeChart();
     treeChartDeathsByState.getCategory(function(d) {
       return d['State']
@@ -144,14 +177,7 @@ function init() {
     treeChartDeathsByState.getValue(function(d) {
       return d['COVID-19 Deaths']
     })
-
-    treeChartDeathsByStatePer100K = treeChart();
-    treeChartDeathsByStatePer100K.getCategory(function(d) {
-      return d['State']
-    })
-    treeChartDeathsByStatePer100K.getValue(function(d) {
-      return d['COVID-19 Deaths per 100K']
-    })
+    .tooltipFields( ["State", "COVID-19 Deaths","COVID-19 Deaths per 100K",  "population", ])
 
     d3.select(".case-stats").classed("hide", false)
     d3.select(".death-stats").classed("hide", false)
@@ -168,6 +194,8 @@ function init() {
       d3.select("#timeslider").classed("hide", false);
     }, 1000)
 
+    d3.select("#loading-spinner").classed("hide", true)
+
   })
 
 
@@ -183,29 +211,31 @@ function onStopTimeline(date) {
 
   let theMonth = d3.timeFormat("%b %d %Y")(Date.parse(currentDate + "T12:00:00"));
   d3.select("#month_display").text(theMonth);
-  setTimeout(function(d) {
-    
-    showDeathWaffleChart(maxDate);    
+  setTimeout(function(d) {    
+    showDeathWaffleChart(maxDate); 
+
+    setTimeout(function(d) {
+      uncheckAllLayersExcept("map", "Deaths by county (circles)")
+      checkLayer("map", "covid_deaths_counties_markers")
+      setTimeout(function() {
+        layers["covid_deaths_counties_markers"].showLegend(true);
+      },1500)
+    }, 7000)   
   }, 2000)
 }
 
+function onPlay() {
 
+  uncheckAllLayersExcept("map", "Cases by county (circles)")
+  checkLayer("map", "covid_cases_counties_markers")
+  setTimeout(function() {
+    layers["covid_cases_counties_markers"].showLegend(true);
+  },1500)
+
+}
 
 function onTimelineTick(date) {
-
-
-
-  if (firstTimePlay) {
-    resetLayerStyles(date)
-    uncheckAllLayersExcept("map", "Cases by county (circles)")
-    checkLayer("map", "covid_cases_counties_markers")
-    setTimeout(function() {
-      layers["covid_cases_counties_markers"].showLegend(true);
-    },1500)
-    firstTimePlay = false;
-  } else {
-    resetLayerStyles(date);
-  }
+  resetLayerStyles(date);
 } 
 function resetLayerStyles(date) {
   var formatDate = d3.timeFormat("%Y-%m-%d");
@@ -225,6 +255,7 @@ function resetLayerStyles(date) {
   showCaseCount(currentDate)
   showDeathDotChart(currentDate)
   setMarkerSize(layers.covid_cases_counties_markers)
+  //setMarkerSize(layers.covid_deaths_counties_markers)
 
 }
 
@@ -344,6 +375,7 @@ function showCaseCount(date) {
 function showDeathDotChart(date) {
   d3.select("#dot-chart").classed("hide", false);
   d3.select(".waffle-chart").classed("hide", true)
+  d3.select("#death-waffle-months").classed("hide", true)
   d3.select("#state-death-waffle-chart-container").classed("hide", true)
   d3.select("#state-death-waffle-chart").classed("hide", true)
   d3.select("#state-death-waffle-header").classed("hide", true)
@@ -373,6 +405,7 @@ function showDeathWaffleChart(date) {
   d3.select("#dot-chart").classed("hide", true);
   d3.select("#death-waffle-chart-container").classed("hide", false)
   d3.select("#death-waffle-chart").classed("hide", false)
+ 
 
   let height = (covidDeaths.boxes/WAFFLE_CELLS_PER_ROW)*WAFFLE_CELL_SIZE
 
@@ -440,15 +473,7 @@ function showDeathByStateChart() {
 function onCheckLayer() {
 
 }
-function showDeathByStatePer100KChart() {
-  $('#deathByStatePer100KModal').modal('show')
 
-  d3.select("death-by-state-per-100k-chart-container").classed("hide", false)
-  let selection = d3.select("#death-by-state-per-100k-chart-container")
-                    .datum(deathByStateData);
-
-  treeChartDeathsByStatePer100K(selection)
-}
 
 function onCheckLayer() {
 

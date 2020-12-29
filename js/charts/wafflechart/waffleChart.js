@@ -20,6 +20,7 @@ fillWaffleChartMonths = function(casesByMonth, containerHeight, theHeight, selec
   d3.select(selector).select("svg").remove();
 
   //h = d3.select(".box-container").node().offsetHeight + 10;
+  d3.select("#death-waffle-months").classed("hide", false)
 
   let svg = d3.select(selector).append("svg")
                                    .attr("height", containerHeight)

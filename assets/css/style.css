@@ -3,6 +3,15 @@ body, html {
  
 }
 
+#loading-spinner {
+  position: fixed;
+  color: white;
+  width: 100%;
+  height: calc(100% - 1px);
+  z-index: 1000;
+  align-items: center;
+}
+
 div.credit {
   margin-top: 10px !important;
 }
@@ -32,10 +41,36 @@ div.credit {
 
 }
 
+div.tooltip.treemap { 
+    position: absolute;     
+    text-align: left;            
+    padding: 10px;       
+    font: 11px;    
+    background: white; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;    
+    font-family: 'Montserrat', sans-serif !important; 
+}
+div.tooltip.treemap>div{
+  margin-bottom: 7px;
+}
+div.tooltip.treemap  .tooltip-label {
+  display: inline-block;
+  width: 200px;
+  line-height: 13px;
+}
+div.tooltip.treemap .tooltip-value {
+  display: inline-block;
+  line-height: 13px;
+  vertical-align: top;
+}
+
 
 h4 {
   font-weight: 400 !important;
 }
+
 
 
 
@@ -120,11 +155,12 @@ h4 {
 }
 
 .covid-death-link {
-  color: white !important;
-  font-size: 13px !important;
+  color:  #80b7ff !important;
+  font-size: 15px !important;
   display: inline-block;
   margin-left: 10px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 #covid-death-counter-header {
@@ -205,8 +241,9 @@ h4 {
     opacity: 1;
 }
 .legend .legend-header {
-  font-weight: bold;  
+  font-weight: 400;  
   margin-bottom: 5px;
+  font-size: 18px;
 }
 
 .legend-cols {
@@ -448,7 +485,7 @@ h4 {
 }
 
 .info.legend.covid_cases_counties_markers {
-  width: 270px;
+  width: 290px;
   background-color: #3a3939;
   border: thin solid #757575;
   fill: white;

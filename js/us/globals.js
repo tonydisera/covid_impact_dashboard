@@ -49,7 +49,7 @@ var deathPoints = null;
 
 var treeChartDeathsByAge = null;
 var treeChartDeathsByState = null;
-var treeChartDeathsByStatePer100K = null;
+
 
 var casesByMonth = [];
 

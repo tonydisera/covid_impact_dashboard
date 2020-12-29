@@ -1,5 +1,5 @@
 function dotChart() {
-  var w = 280, h = 570;
+  var w = 200, h = 570;
   
 
   var svg = null;
@@ -20,7 +20,7 @@ function dotChart() {
           return +d.value
         })
         svg = selection.append("svg")
-          .attr("width", w/2)
+          .attr("width", w)
           .attr("height", h)     
       } else {
         firstTime = false;
@@ -29,7 +29,7 @@ function dotChart() {
 
       var cellSize = 8;
       var cellPadding = 1;
-      var cols = Math.floor((w/2) / (cellSize + cellPadding));
+      var cols = Math.floor((w) / (cellSize + cellPadding));
       var r = 0;
       var c = 0;
       data.forEach(function(d) {

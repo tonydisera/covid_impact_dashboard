@@ -393,7 +393,7 @@ function createColorScale(layerKey, domain, interpolater, darkenStep,
     }
   }
   layer.addLegend = function(theMap) {
-    var legend = L.control({position: 'bottomright'});
+    var legend = L.control({position: 'topright'});
 
     legend.onAdd = function (map) {
       

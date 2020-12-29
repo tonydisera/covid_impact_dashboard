@@ -143,7 +143,7 @@ function timeslider() {
 
 
       var handle = slider.insert("circle", ".track-overlay")
-          .attr("class", "handle")
+          .attr("class", "handle hide")
           .attr("r", 9)
           .attr("cx", x.range()[0])
 
@@ -152,6 +152,7 @@ function timeslider() {
           .on("click", function() {
             var button = d3.select(this);
             var buttonText = selection.select("#play-button").text();
+            svg.select("circle.handle").classed("hide", false)
 
             if (buttonText == "Pause") {
               moving = false;
@@ -159,6 +160,7 @@ function timeslider() {
               // timer = 0;
               button.text("Play")
             } else {
+              onPlay()
               moving = true;
 
               firstStep();

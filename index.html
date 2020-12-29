@@ -66,6 +66,16 @@
 <title>COVID-19 in the U.S.</title>
 </head>
 <body>
+
+
+<div id="loading-spinner" class="d-flex justify-content-center" >
+  <div class="spinner-border" style="width: 3rem;height: 3rem;" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <span style="font-size:25px;padding-left:10px">Loading...</span>
+</div>
+
+
  <div class="container-fluid us">
 
 
@@ -84,9 +94,8 @@
            <span id="covid-death-counter-header" class="covid-counter-header">Deaths</span>
          </span>
          <div>
-           <a class="covid-death-link"  onclick="showDeathByAgeChart()">by age</a>
-           <a class="covid-death-link" onclick="showDeathByStateChart()">by state</a>
-           <a class="covid-death-link" onclick="showDeathByStatePer100KChart()">by state per 100K</a>
+           <a class="covid-death-link" onclick="showDeathByStateChart()">Deaths by state</a>
+           <a class="covid-death-link"  onclick="showDeathByAgeChart()">Deaths by age</a>
          </div>
          
          <div id="dot-chart" class="hide" >
@@ -170,7 +179,7 @@
           </div>
         </div>
         <div class="map-wrapper" >
-          <div class="map" id="mapid1"></div>
+          <div class="map" id="mapid1" ></div>
         </div>
      </div>
     
@@ -207,25 +216,11 @@
         </button>
       </div>
       <div class="modal-body">
-         <div id="death-by-state-chart-container">
-
+         <div>
+           <button id="button-death-per-capita" onclick="onDeathPerCapita()" type="button">Switch to per 100K</button>
+           <button id="button-total-death" class="hide" onclick="onDeathTotal()" type="button">Switch to total deaths</button>
          </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="deathByStatePer100KModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="min-width:940px;min-height:600px">
-    <div class="modal-content" >
-      <div class="modal-header">
-        <h5 class="modal-title" >U.S. COVID-19 deaths by state per 100K</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-         <div id="death-by-state-per-100k-chart-container">
+         <div id="death-by-state-chart-container">
 
          </div>
       </div>
