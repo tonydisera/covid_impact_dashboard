@@ -261,28 +261,34 @@ var aggregateMonthlyTotals = function() {
     sortedDateKeys.forEach(function(dateKey) {
       let dateObject  = stateObject.dates[dateKey];
       let month       = dateKey.split("-")[1]
+      let year        = dateKey.split("-")[0]
+      let monthKey    = year + "-" + month
 
-      if (prev != null && month != prev.month) {
-        let monthCases = monthlyTotals[prev.month];
+      if (prev != null && monthKey != prev.monthKey) {
+        let monthCases = monthlyTotals[prev.monthKey];
         if (monthCases == null) {
           monthCases = {cases: 0, deaths: 0};
-          monthlyTotals[prev.month] = monthCases;
+          monthlyTotals[prev.monthKey] = monthCases;
         }
 
         monthCases.month  = prev.month
+        monthCases.year = prev.year
+        monthCases.monthKey = prev.monthKey
         monthCases.monthDisplay =  d3.timeFormat("%b")(new Date(prev.date))
         monthCases.cases  += +prev.dateObject.cases;
         monthCases.deaths += +prev.dateObject.deaths;        
       }
-      prev = {month: month, dateObject: dateObject, date: dateKey}
+      prev = {monthKey: monthKey, year: year, month: month, dateObject: dateObject, date: dateKey}
     })
-    let monthCases = monthlyTotals[prev.month];
+    let monthCases = monthlyTotals[prev.monthKey];
     if (monthCases == null) {
-      monthCases = {cases: 0, deaths: 0, month: prev.month, monthDisplay: d3.timeParse("%b")(prev.dateObject)};
-      monthlyTotals[prev.month] = monthCases;
+      monthCases = {cases: 0, deaths: 0, month: prev.month, year: prev.year, monthDisplay: d3.timeParse("%b")(prev.dateObject)};
+      monthlyTotals[prev.monthKey] = monthCases;
     }
 
-    monthCases.month  = prev.month
+    monthCases.month    = prev.month
+    monthCases.year     = prev.year
+    monthCases.monthKey = prev.monthKey
     monthCases.monthDisplay =  d3.timeFormat("%b")(new Date(prev.date))
     monthCases.cases  += +prev.dateObject.cases;
     monthCases.deaths += +prev.dateObject.deaths;        
@@ -292,8 +298,8 @@ var aggregateMonthlyTotals = function() {
 
   casesByMonth = []; 
   let sortedMonthKeys = Object.keys(monthlyTotals).sort(); 
-  sortedMonthKeys.forEach(function(month){
-    let monthCases = monthlyTotals[month];
+  sortedMonthKeys.forEach(function(monthKey){
+    let monthCases = monthlyTotals[monthKey];
     casesByMonth.push(monthCases);
   })
 
