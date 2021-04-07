@@ -18,7 +18,7 @@ var margin = {top: 10, right: 50, bottom: 40, left: 10},
     return +d['COVID-19 Deaths']
   }
   let getCategory = function(d) {
-    return +d['Age group']
+    return +d['Age Group']
   }
   let tooltipFields = []
   let getTooltipHTML = function(d) {

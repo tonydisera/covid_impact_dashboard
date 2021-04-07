@@ -374,24 +374,26 @@ var promiseParseCovidAgeData = function() {
       deathByAgeData = data.filter(function(row) {
         return row.Sex == 'All Sexes' 
         && row.State == 'United States'
-        && ageGroup2.indexOf(row['Age group']) >= 0;
+        && row.Group == "By Total"
+        && ageGroup2.indexOf(row['Age Group']) >= 0;
       })
       deathByAgeData.forEach(function(row) {
-        if (row['Age group'] == 'All Ages') {
+        if (row['Age Group'] == 'All Ages') {
           row.parent = null
         } else {
           row.parent = 'All Ages'
         }
       })
       deathByAgeData.forEach(function(row) {
-        if (row['Age group'] == 'All Ages') {
+        if (row['Age Group'] == 'All Ages') {
           row['COVID-19 Deaths'] = 0
         } 
       })
       
       deathByState = data.filter(function(row) {
         return row.Sex == 'All Sexes' 
-        && row['Age group'] == 'All Ages';
+        && row.Group == "By Total"
+        && row['Age Group'] == 'All Ages';
       })
       deathByState.forEach(function(row) {
         if (row['State'] == 'United States') {

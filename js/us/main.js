@@ -163,10 +163,10 @@ function init() {
 
     treeChartDeathsByAge = treeChart();
     treeChartDeathsByAge.getCategory(function(d) {
-      return d['Age group']
+      return d['Age Group']
     })
     .margin({top: 10, right: 80, bottom: 40, left: 10})
-    .tooltipFields(["Age group", "COVID-19 Deaths", "Total Deaths", 
+    .tooltipFields(["Age Group", "COVID-19 Deaths", "Total Deaths", 
       "Pneumonia Deaths", "Pneumonia and COVID-19 Deaths", 
       "Influenza Deaths", "Pneumonia, Influenza, or COVID-19 Deaths"]
     )
@@ -454,7 +454,7 @@ function showDeathByAgeChart() {
 
 function showDeathByAgeChart() {
   $('#deathByAgeModal').modal('show')
-  d3.select("death-by-age-chart-container").classed("hide", false)
+  d3.select("#death-by-age-chart-container").classed("hide", false)
   let selection = d3.select("#death-by-age-chart-container")
                     .datum(deathByAgeData);
 
@@ -463,7 +463,7 @@ function showDeathByAgeChart() {
 
 function showDeathByStateChart() {
   $('#deathByStateModal').modal('show')
-  d3.select("death-by-state-chart-container").classed("hide", false)
+  d3.select("#death-by-state-chart-container").classed("hide", false)
   let selection = d3.select("#death-by-state-chart-container")
                     .datum(deathByStateData);
 

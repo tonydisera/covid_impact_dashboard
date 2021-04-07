@@ -60,7 +60,7 @@ var newYorkCountyFips = "36061";
 var deathColor = "#80b7ff";
 var otherDeathColor  = "#c1c7d7";
 
-let deathFactor = 350
+let deathFactor = 400
 let covidDeaths = {
     "name": "COVID-19",
     "capacity": 0,

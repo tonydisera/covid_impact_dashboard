@@ -1,5 +1,5 @@
 function bubbleChart() {
-  var w = 500, h = 350;
+  var w = 600, h = 650;
   
   var radius = 6;
   var centerScale = d3.scalePoint().padding(1).range([0, w]);
